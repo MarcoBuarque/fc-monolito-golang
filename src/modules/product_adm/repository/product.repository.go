@@ -16,3 +16,11 @@ func (repo ProductRepository) Add(ctx context.Context, data ProductData) (Produc
 	}
 	return data, nil
 }
+
+func (repo ProductRepository) Find(ctx context.Context, id string) (ProductData, error) {
+	response := &ProductData{ID: id}
+	if result := repo.db.WithContext(ctx).First(response); result.Error != nil {
+		return ProductData{}, result.Error
+	}
+	return *response, nil
+}
