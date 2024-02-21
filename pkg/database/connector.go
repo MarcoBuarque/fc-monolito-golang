@@ -1,4 +1,4 @@
-package db
+package database
 
 import (
 	"sync"
@@ -21,14 +21,14 @@ func GetDB() *gorm.DB {
 }
 
 func GetDBMock() (*gorm.DB, sqlmock.Sqlmock) {
-	dbMock, mock, err := sqlmock.New()
+	dbMock, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 	if err != nil {
-		panic("failed to connect database")
+		panic("failed to start sqlmock")
 	}
 
 	db, err := gorm.Open(postgres.New(postgres.Config{Conn: dbMock}), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database")
+		panic("failed to connect mocked database")
 	}
 
 	return db, mock

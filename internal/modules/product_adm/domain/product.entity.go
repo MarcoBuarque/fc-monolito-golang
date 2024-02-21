@@ -3,9 +3,9 @@ package domain
 import (
 	"fmt"
 
-	"github.com/MarcoBuarque/monolito/src/modules/product_adm/repository"
-	"github.com/MarcoBuarque/monolito/src/modules/shared/domain/entity"
-	valueobject "github.com/MarcoBuarque/monolito/src/modules/shared/domain/value_object"
+	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
+	"github.com/MarcoBuarque/monolito/internal/modules/shared/domain/entity"
+	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
 	"github.com/shopspring/decimal"
 )
 

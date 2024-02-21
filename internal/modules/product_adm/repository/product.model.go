@@ -17,3 +17,5 @@ type ProductData struct {
 	UpdatedAt     time.Time
 	DeletedAt     gorm.DeletedAt `gorm:"index"`
 }
+
+func (d ProductData) TableName() string { return "products" }
