@@ -1,32 +1,31 @@
-package findproduct
+package findclient
 
 import (
 	"context"
 	"os"
 	"testing"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/mocks/repomocks"
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
-	"github.com/shopspring/decimal"
+	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/mocks/repomocks"
+	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"gorm.io/gorm"
 )
 
 var (
-	useCase  FindProductUseCase
-	repoMock = &repomocks.IProductRepository{}
+	useCase  FindClientUseCase
+	repoMock = &repomocks.IClientRepository{}
 )
 
 func TestMain(m *testing.M) {
-	useCase = FindProductUseCase{productRepository: repoMock}
+	useCase = FindClientUseCase{productRepository: repoMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
 func TestNewFindProductUseCase(t *testing.T) {
-	response := NewFindProductUseCase(repoMock)
+	response := NewFindClientUseCase(repoMock)
 
 	assert.Equal(t, useCase, response)
 }
@@ -34,11 +33,11 @@ func TestNewFindProductUseCase(t *testing.T) {
 func TestFindProductUseCase_Execute(t *testing.T) {
 	assert := assert.New(t)
 
-	product := repository.ProductData{
-		ID:          "xpto_id",
-		Name:        "xpto",
-		Description: "xpto_description",
-		SalesPrice:  decimal.NewFromInt(10),
+	product := repository.Client{
+		ID:      "xpto_id",
+		Name:    "xpto",
+		Email:   "email",
+		Address: "ADDRESS",
 	}
 
 	type args struct {
@@ -46,7 +45,7 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 	}
 
 	type expect struct {
-		data repository.ProductData
+		data repository.Client
 		err  error
 	}
 
@@ -62,10 +61,10 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 				ctx: context.Background(),
 			},
 			setupMock: func() {
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.ProductData{}, gorm.ErrInvalidData)
+				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.Client{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
-				data: repository.ProductData{},
+				data: repository.Client{},
 				err:  gorm.ErrInvalidData,
 			},
 		},
@@ -96,7 +95,8 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)
-			assert.Equal(tt.expect.data.SalesPrice, response.SalesPrice)
+			assert.Equal(tt.expect.data.Email, response.Email)
+			assert.Equal(tt.expect.data.Address, response.Address)
 		})
 	}
 }

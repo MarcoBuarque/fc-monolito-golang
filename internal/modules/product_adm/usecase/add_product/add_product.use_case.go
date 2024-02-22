@@ -28,6 +28,5 @@ func (controller AddProductUseCase) Execute(ctx context.Context, data repository
 		return repository.ProductData{}, err
 	}
 
-	a := entity.ToData()
-	return a, nil
+	return entity.ToData(), nil
 }

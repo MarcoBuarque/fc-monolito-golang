@@ -13,7 +13,9 @@ type ProductAdmFacadeFactory struct {
 
 func NewProductAdmFacadeFactory() facade.ProductAdmFacade {
 	repo := repository.NewProductRepository(database.GetDB())
-	addUseCase := addproduct.NewAddProductUseCase(repo)
-	checkStockUseCase := checkstock.NewCheckStockUseCase(repo)
-	return facade.NewProductAdmFacade(addUseCase, checkStockUseCase)
+
+	return facade.NewProductAdmFacade(
+		addproduct.NewAddProductUseCase(repo),
+		checkstock.NewCheckStockUseCase(repo),
+	)
 }

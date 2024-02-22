@@ -14,5 +14,8 @@ type StoreCatalogFacadeFactory struct {
 func NewStoreCatalogFacadeFactory() facade.IStoreCatalogFacade {
 	repo := repository.NewProductRepository(database.GetDB())
 
-	return facade.NewStoreCatalogFacade(findallproducts.NewFindAllProductsUseCase(repo), findproduct.NewFindProductUseCase(repo))
+	return facade.NewStoreCatalogFacade(
+		findallproducts.NewFindAllProductsUseCase(repo),
+		findproduct.NewFindProductUseCase(repo),
+	)
 }
