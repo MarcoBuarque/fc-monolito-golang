@@ -20,7 +20,7 @@ var (
 
 func TestMain(m *testing.M) {
 	db, mockQueue = database.GetDBMock()
-	repo = NewProductRepository(db)
+	repo = ProductRepository{db}
 
 	exitVal := m.Run()
 
