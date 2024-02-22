@@ -7,5 +7,5 @@ import (
 )
 
 type IAddProductUseCase interface {
-	Execute(ctx context.Context, data repository.ProductData) (repository.ProductData, error)
+	Execute(ctx context.Context, data repository.Product) (repository.Product, error)
 }

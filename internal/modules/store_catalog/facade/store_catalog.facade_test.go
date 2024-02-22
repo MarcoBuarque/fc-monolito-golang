@@ -34,14 +34,14 @@ func TestNewStoreCatalogFacade(t *testing.T) {
 func TestStoreCatalogFacade_FindAll(t *testing.T) {
 	assert := assert.New(t)
 
-	products := []repository.ProductData{
+	products := []repository.Product{
 		{ID: "xpto_id",
 			Name:        "xpto",
 			Description: "xpto_description"},
 	}
 
 	type expect struct {
-		data []repository.ProductData
+		data []repository.Product
 		err  error
 	}
 
@@ -53,10 +53,10 @@ func TestStoreCatalogFacade_FindAll(t *testing.T) {
 		{
 			title: "Should return an error from repository",
 			setupMock: func() {
-				findAllUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return([]repository.ProductData{}, gorm.ErrInvalidData)
+				findAllUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return([]repository.Product{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
-				data: []repository.ProductData{},
+				data: []repository.Product{},
 				err:  gorm.ErrInvalidData,
 			},
 		},
@@ -95,7 +95,7 @@ func TestStoreCatalogFacade_FindAll(t *testing.T) {
 func TestStoreCatalogFacade_Find(t *testing.T) {
 	assert := assert.New(t)
 
-	product := repository.ProductData{
+	product := repository.Product{
 		ID:          "xpto_id",
 		Name:        "xpto",
 		Description: "xpto_description",
@@ -107,7 +107,7 @@ func TestStoreCatalogFacade_Find(t *testing.T) {
 	}
 
 	type expect struct {
-		data repository.ProductData
+		data repository.Product
 		err  error
 	}
 
@@ -124,10 +124,10 @@ func TestStoreCatalogFacade_Find(t *testing.T) {
 				productID: "product",
 			},
 			setupMock: func() {
-				findUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(repository.ProductData{}, gorm.ErrInvalidData)
+				findUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(repository.Product{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
-				data: repository.ProductData{},
+				data: repository.Product{},
 				err:  gorm.ErrInvalidData,
 			},
 		},

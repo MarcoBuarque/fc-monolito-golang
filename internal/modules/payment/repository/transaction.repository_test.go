@@ -6,8 +6,11 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/MarcoBuarque/monolito/internal/modules/payment/domain"
 	"github.com/MarcoBuarque/monolito/pkg/database"
+	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 )
 
@@ -86,4 +89,18 @@ func TestTransactionRepository_Add(t *testing.T) {
 	}
 
 	assert.Nil(mockQueue.ExpectationsWereMet())
+}
+
+func TestToData(t *testing.T) {
+	assert := assert.New(t)
+
+	entity, err := domain.NewTransaction("", "xpto", "declined", decimal.NewFromInt(70))
+	require.Nil(t, err)
+
+	dbData := Convert(entity)
+
+	assert.Equal(entity.ID().ToString(), dbData.ID)
+	assert.Equal(entity.OrderID(), dbData.OrderID)
+	assert.Equal(entity.Amount(), dbData.Amount)
+	assert.Equal(entity.Status(), dbData.Status.ToString())
 }

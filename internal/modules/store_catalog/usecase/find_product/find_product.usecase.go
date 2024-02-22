@@ -15,11 +15,11 @@ func NewFindProductUseCase(repository repository.IProductRepository) FindProduct
 	return FindProductUseCase{productRepository: repository}
 }
 
-func (controller FindProductUseCase) Execute(ctx context.Context, productID string) (repository.ProductData, error) {
+func (controller FindProductUseCase) Execute(ctx context.Context, productID string) (repository.Product, error) {
 	response, err := controller.productRepository.Find(ctx, productID)
 	if err != nil {
 		// TODO: add log
-		return repository.ProductData{}, err
+		return repository.Product{}, err
 	}
 
 	return response, nil

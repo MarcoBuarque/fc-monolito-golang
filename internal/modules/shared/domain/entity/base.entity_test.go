@@ -7,10 +7,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateBaseEntity(t *testing.T) {
+func TestNewBaseEntity(t *testing.T) {
 	assert := assert.New(t)
 
-	baseEntity := CreateBaseEntity(valueobject.CreateID("abc"))
+	baseEntity := NewBaseEntity(valueobject.NewID("abc"))
 
 	assert.Equal(baseEntity.ID().ToString(), "abc")
 }

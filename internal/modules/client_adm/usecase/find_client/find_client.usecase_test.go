@@ -34,10 +34,9 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 	assert := assert.New(t)
 
 	product := repository.Client{
-		ID:      "xpto_id",
-		Name:    "xpto",
-		Email:   "email",
-		Address: "ADDRESS",
+		ID:    "xpto_id",
+		Name:  "xpto",
+		Email: "email",
 	}
 
 	type args struct {
@@ -96,7 +95,7 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)
 			assert.Equal(tt.expect.data.Email, response.Email)
-			assert.Equal(tt.expect.data.Address, response.Address)
+			assert.Equal(tt.expect.data.Street, response.Street)
 		})
 	}
 }

@@ -12,7 +12,7 @@ type BaseEntity struct {
 	updatedAt time.Time
 }
 
-func CreateBaseEntity(id valueobject.ID) BaseEntity {
+func NewBaseEntity(id valueobject.ID) BaseEntity {
 	return BaseEntity{
 		id:        id,
 		createdAt: time.Now(),

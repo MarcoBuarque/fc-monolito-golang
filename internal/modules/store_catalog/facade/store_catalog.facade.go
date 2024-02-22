@@ -17,10 +17,10 @@ func NewStoreCatalogFacade(findAllUseCase findallproducts.IFindAllProductsUseCas
 	return StoreCatalogFacade{findAllUseCase, findUseCase}
 }
 
-func (facade StoreCatalogFacade) FindAll(ctx context.Context) ([]repository.ProductData, error) {
+func (facade StoreCatalogFacade) FindAll(ctx context.Context) ([]repository.Product, error) {
 	return facade.findAllUseCase.Execute(ctx)
 }
 
-func (facade StoreCatalogFacade) Find(ctx context.Context, productID string) (repository.ProductData, error) {
+func (facade StoreCatalogFacade) Find(ctx context.Context, productID string) (repository.Product, error) {
 	return facade.findUseCase.Execute(ctx, productID)
 }

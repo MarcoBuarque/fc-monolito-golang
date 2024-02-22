@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ProductData struct {
+type Product struct {
 	ID          string `gorm:"primarykey"`
 	Name        string
 	Description string
@@ -16,5 +16,3 @@ type ProductData struct {
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`
 }
-
-func (d ProductData) TableName() string { return "products" }

@@ -56,7 +56,7 @@ func TestCheckStockUseCase_Execute(t *testing.T) {
 				productID: "",
 			},
 			setupMock: func() {
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.ProductData{}, gorm.ErrInvalidData)
+				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.Product{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
 				stock: 0,
@@ -73,7 +73,7 @@ func TestCheckStockUseCase_Execute(t *testing.T) {
 				// clean mock queue
 				repoMock.Mock = mock.Mock{}
 
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.ProductData{Stock: 2}, nil)
+				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.Product{Stock: 2}, nil)
 			},
 			expect: expect{
 				stock: 2,

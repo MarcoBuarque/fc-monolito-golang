@@ -7,5 +7,5 @@ import (
 )
 
 type IFindProductUseCase interface {
-	Execute(ctx context.Context, productID string) (repository.ProductData, error)
+	Execute(ctx context.Context, productID string) (repository.Product, error)
 }

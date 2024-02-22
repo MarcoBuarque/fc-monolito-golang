@@ -3,6 +3,7 @@ package repository
 import (
 	"time"
 
+	"github.com/MarcoBuarque/monolito/internal/modules/payment/domain"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 )
@@ -27,4 +28,15 @@ type Transaction struct {
 
 func (data Status) ToString() string {
 	return string(data)
+}
+
+func Convert(data domain.TransactionEntity) Transaction {
+	return Transaction{
+		ID:        string(data.ID().ToString()),
+		Status:    Status(data.Status()),
+		OrderID:   data.OrderID(),
+		Amount:    data.Amount(),
+		CreatedAt: data.CreatedAt(),
+		UpdatedAt: data.UpdatedAt(),
+	}
 }

@@ -7,6 +7,6 @@ import (
 )
 
 type IStoreCatalogFacade interface {
-	Find(ctx context.Context, productID string) (repository.ProductData, error)
-	FindAll(ctx context.Context) ([]repository.ProductData, error)
+	Find(ctx context.Context, productID string) (repository.Product, error)
+	FindAll(ctx context.Context) ([]repository.Product, error)
 }

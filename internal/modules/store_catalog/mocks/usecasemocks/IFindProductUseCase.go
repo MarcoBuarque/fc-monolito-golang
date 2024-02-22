@@ -13,14 +13,14 @@ type IFindProductUseCase struct {
 }
 
 // Execute provides a mock function with given fields: ctx, productID
-func (_m *IFindProductUseCase) Execute(ctx context.Context, productID string) (repository.ProductData, error) {
+func (_m *IFindProductUseCase) Execute(ctx context.Context, productID string) (repository.Product, error) {
 	ret := _m.Called(ctx, productID)
 
-	var r0 repository.ProductData
-	if rf, ok := ret.Get(0).(func(context.Context, string) repository.ProductData); ok {
+	var r0 repository.Product
+	if rf, ok := ret.Get(0).(func(context.Context, string) repository.Product); ok {
 		r0 = rf(ctx, productID)
 	} else {
-		r0 = ret.Get(0).(repository.ProductData)
+		r0 = ret.Get(0).(repository.Product)
 	}
 
 	var r1 error

@@ -17,7 +17,7 @@ func NewProductAdmFacade(addUseCase addproduct.IAddProductUseCase, checkStockUse
 	return ProductAdmFacade{addUseCase, checkStockUseCase}
 }
 
-func (facade ProductAdmFacade) AddProduct(ctx context.Context, data repository.ProductData) (repository.ProductData, error) {
+func (facade ProductAdmFacade) AddProduct(ctx context.Context, data repository.Product) (repository.Product, error) {
 	return facade.addUseCase.Execute(ctx, data)
 }
 

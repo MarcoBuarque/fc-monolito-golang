@@ -3,11 +3,12 @@ package repository
 import (
 	"time"
 
+	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/domain"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 )
 
-type ProductData struct {
+type Product struct {
 	ID            string `gorm:"primarykey"`
 	Name          string
 	Description   string
@@ -18,4 +19,14 @@ type ProductData struct {
 	DeletedAt     gorm.DeletedAt `gorm:"index"`
 }
 
-func (d ProductData) TableName() string { return "products" }
+func Convert(data domain.ProductEntity) Product {
+	return Product{
+		ID:            string(data.ID().ToString()),
+		Name:          data.Name(),
+		Description:   data.Description(),
+		PurchasePrice: data.PurchasePrice(),
+		Stock:         data.Stock(),
+		CreatedAt:     data.CreatedAt(),
+		UpdatedAt:     data.UpdatedAt(),
+	}
+}

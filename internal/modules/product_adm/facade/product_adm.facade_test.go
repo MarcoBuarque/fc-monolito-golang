@@ -35,7 +35,7 @@ func TestNewProductAdmFacade(t *testing.T) {
 func TestProductAdmFacade_AddProduct(t *testing.T) {
 	assert := assert.New(t)
 
-	product := repository.ProductData{
+	product := repository.Product{
 		ID:            "xpto_id",
 		Name:          "xpto",
 		Description:   "xpto_description",
@@ -45,11 +45,11 @@ func TestProductAdmFacade_AddProduct(t *testing.T) {
 
 	type args struct {
 		ctx     context.Context
-		product repository.ProductData
+		product repository.Product
 	}
 
 	type expect struct {
-		data repository.ProductData
+		data repository.Product
 		err  error
 	}
 
@@ -66,10 +66,10 @@ func TestProductAdmFacade_AddProduct(t *testing.T) {
 				product: product,
 			},
 			setupMock: func() {
-				addProductMock.On("Execute", mock.Anything, mock.Anything).Return(repository.ProductData{}, gorm.ErrInvalidData)
+				addProductMock.On("Execute", mock.Anything, mock.Anything).Return(repository.Product{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
-				data: repository.ProductData{},
+				data: repository.Product{},
 				err:  gorm.ErrInvalidData,
 			},
 		},

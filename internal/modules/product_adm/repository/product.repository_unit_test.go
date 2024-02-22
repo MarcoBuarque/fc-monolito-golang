@@ -7,8 +7,11 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/domain"
 	"github.com/MarcoBuarque/monolito/pkg/database"
+	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 )
 
@@ -42,7 +45,7 @@ func TestProductRepository_Add(t *testing.T) {
 
 	type args struct {
 		ctx  context.Context
-		data ProductData
+		data Product
 	}
 
 	tests := []struct {
@@ -55,7 +58,7 @@ func TestProductRepository_Add(t *testing.T) {
 			title: "Should return an error from db",
 			args: args{
 				ctx:  context.TODO(),
-				data: ProductData{},
+				data: Product{},
 			},
 			setupMock: func() {
 				mockQueue.ExpectBegin()
@@ -68,7 +71,7 @@ func TestProductRepository_Add(t *testing.T) {
 			title: "Success",
 			args: args{
 				ctx:  context.TODO(),
-				data: ProductData{},
+				data: Product{},
 			},
 			setupMock: func() {
 				mockQueue.ExpectBegin()
@@ -102,7 +105,7 @@ func TestProductRepository_Find(t *testing.T) {
 	}
 
 	type expect struct {
-		data ProductData
+		data Product
 		err  error
 	}
 
@@ -119,7 +122,7 @@ func TestProductRepository_Find(t *testing.T) {
 				productID: "",
 			},
 			setupMock: func() {},
-			expect:    expect{data: ProductData{}, err: fmt.Errorf("id cannot be empty")},
+			expect:    expect{data: Product{}, err: fmt.Errorf("id cannot be empty")},
 		},
 		{
 			title: "Should return an error from db",
@@ -130,7 +133,7 @@ func TestProductRepository_Find(t *testing.T) {
 			setupMock: func() {
 				mockQueue.ExpectQuery(query).WithArgs("xpto", 1).WillReturnError(gorm.ErrRecordNotFound)
 			},
-			expect: expect{data: ProductData{}, err: gorm.ErrRecordNotFound},
+			expect: expect{data: Product{}, err: gorm.ErrRecordNotFound},
 		},
 		{
 			title: "Success",
@@ -143,7 +146,7 @@ func TestProductRepository_Find(t *testing.T) {
 				mockQueue.ExpectQuery(query).WithArgs("xpto_2", 1).WillReturnRows(row)
 			},
 
-			expect: expect{data: ProductData{ID: "xpto_2", Name: "fire"}, err: nil},
+			expect: expect{data: Product{ID: "xpto_2", Name: "fire"}, err: nil},
 		},
 	}
 	for _, tt := range tests {
@@ -157,4 +160,20 @@ func TestProductRepository_Find(t *testing.T) {
 	}
 
 	assert.Nil(mockQueue.ExpectationsWereMet())
+}
+
+func TestConvert(t *testing.T) {
+	assert := assert.New(t)
+
+	entity, err := domain.NewProduct("", "xpto", "xpto_description", decimal.NewFromInt(10), 10)
+	require.Nil(t, err)
+
+	dbData := Convert(entity)
+
+	assert.Equal(entity.ID().ToString(), dbData.ID)
+	assert.Equal(entity.Name(), dbData.Name)
+	assert.Equal(entity.PurchasePrice(), dbData.PurchasePrice)
+	assert.Equal(entity.Stock(), dbData.Stock)
+	assert.Equal(entity.CreatedAt(), dbData.CreatedAt)
+	assert.Equal(entity.UpdatedAt(), dbData.UpdatedAt)
 }

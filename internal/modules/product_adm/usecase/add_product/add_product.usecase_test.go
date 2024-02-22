@@ -35,7 +35,7 @@ func TestNewAddProductUseCase(t *testing.T) {
 func TestAddProductUseCase_Execute(t *testing.T) {
 	assert := assert.New(t)
 
-	product := repository.ProductData{
+	product := repository.Product{
 		ID:            "xpto_id",
 		Name:          "xpto",
 		Description:   "xpto_description",
@@ -45,11 +45,11 @@ func TestAddProductUseCase_Execute(t *testing.T) {
 
 	type args struct {
 		ctx     context.Context
-		product repository.ProductData
+		product repository.Product
 	}
 
 	type expect struct {
-		data repository.ProductData
+		data repository.Product
 		err  error
 	}
 
@@ -63,11 +63,11 @@ func TestAddProductUseCase_Execute(t *testing.T) {
 			title: "should return an error for an invalid product",
 			args: args{
 				ctx:     context.Background(),
-				product: repository.ProductData{},
+				product: repository.Product{},
 			},
 			setupMock: func() {},
 			expect: expect{
-				data: repository.ProductData{},
+				data: repository.Product{},
 				err:  fmt.Errorf("productEntity: name cannot be empty"),
 			},
 		},
@@ -81,7 +81,7 @@ func TestAddProductUseCase_Execute(t *testing.T) {
 				repoMock.On("Add", mock.Anything, mock.Anything).Return(gorm.ErrInvalidData)
 			},
 			expect: expect{
-				data: repository.ProductData{},
+				data: repository.Product{},
 				err:  gorm.ErrInvalidData,
 			},
 		},

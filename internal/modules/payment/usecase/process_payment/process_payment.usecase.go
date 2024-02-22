@@ -23,7 +23,8 @@ func (controller ProcessPaymentUseCase) Execute(ctx context.Context, orderID str
 		return repository.Transaction{}, err
 	}
 
-	data := txEntity.ToData()
+	data := repository.Convert(txEntity)
+
 	if err := controller.transactionRepository.Save(ctx, data); err != nil {
 		// TODO: add log
 		return repository.Transaction{}, err

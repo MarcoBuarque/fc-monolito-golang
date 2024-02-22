@@ -7,8 +7,11 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/domain"
+	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
 	"github.com/MarcoBuarque/monolito/pkg/database"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 )
 
@@ -38,7 +41,7 @@ func TestNewClientRepository(t *testing.T) {
 func TestClientRepository_Add(t *testing.T) {
 	assert := assert.New(t)
 
-	query := `INSERT INTO "clients" ("id","name","email","address","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7)`
+	query := `INSERT INTO "clients" ("id","name","email","street","number","complement","city","state","zip_code","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`
 
 	type args struct {
 		ctx  context.Context
@@ -66,11 +69,11 @@ func TestClientRepository_Add(t *testing.T) {
 			title: "Success",
 			args: args{
 				ctx:  context.TODO(),
-				data: Client{Name: "xpto", Email: "email", Address: "aff"},
+				data: Client{Name: "xpto", Email: "email"},
 			},
 			setupMock: func() {
 				mockQueue.ExpectBegin()
-				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnResult(sqlmock.NewResult(1, 1))
+				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnResult(sqlmock.NewResult(1, 1))
 				mockQueue.ExpectCommit()
 			},
 			expect: nil,
@@ -155,4 +158,19 @@ func TestClientRepository_Find(t *testing.T) {
 	}
 
 	assert.Nil(mockQueue.ExpectationsWereMet())
+}
+
+func TestConvert(t *testing.T) {
+	assert := assert.New(t)
+
+	entity, err := domain.NewClient("", "xpto", "email", valueobject.Address{})
+	require.Nil(t, err)
+
+	dbData := Convert(entity)
+
+	assert.Equal(entity.ID().ToString(), dbData.ID)
+	assert.Equal(entity.Name(), dbData.Name)
+	assert.Equal(entity.Email(), dbData.Email)
+	assert.Equal(entity.CreatedAt(), dbData.CreatedAt)
+	assert.Equal(entity.UpdatedAt(), dbData.UpdatedAt)
 }

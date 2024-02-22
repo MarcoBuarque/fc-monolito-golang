@@ -3,7 +3,6 @@ package domain
 import (
 	"fmt"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
 	"github.com/MarcoBuarque/monolito/internal/modules/shared/domain/entity"
 	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
 	"github.com/shopspring/decimal"
@@ -39,7 +38,7 @@ func NewProduct(id, name, description string, purchasePrice decimal.Decimal, sto
 		description:   description,
 		purchasePrice: purchasePrice,
 		stock:         stock,
-		BaseEntity:    entity.CreateBaseEntity(valueobject.CreateID(id)),
+		BaseEntity:    entity.NewBaseEntity(valueobject.NewID(id)),
 	}, nil
 }
 
@@ -48,14 +47,3 @@ func (data ProductEntity) Description() string            { return data.descript
 func (data ProductEntity) PurchasePrice() decimal.Decimal { return data.purchasePrice }
 func (data ProductEntity) Stock() int32                   { return data.stock }
 func (data *ProductEntity) SetStock(stock int32)          { data.stock = stock }
-func (data ProductEntity) ToData() repository.ProductData {
-	return repository.ProductData{
-		ID:            string(data.ID().ToString()),
-		Name:          data.name,
-		Description:   data.description,
-		PurchasePrice: data.purchasePrice,
-		Stock:         data.stock,
-		CreatedAt:     data.CreatedAt(),
-		UpdatedAt:     data.UpdatedAt(),
-	}
-}

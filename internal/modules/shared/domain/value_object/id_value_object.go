@@ -6,7 +6,7 @@ type ID struct {
 	id string
 }
 
-func CreateID(newID string) ID {
+func NewID(newID string) ID {
 	if newID == "" {
 		return ID{id: uuid.New().String()}
 	}

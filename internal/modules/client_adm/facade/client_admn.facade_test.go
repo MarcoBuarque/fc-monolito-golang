@@ -85,7 +85,7 @@ func TestClientAdmFacade_Add(t *testing.T) {
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)
 			assert.Equal(tt.expect.data.Email, response.Email)
-			assert.Equal(tt.expect.data.Address, response.Address)
+			assert.Equal(tt.expect.data.Street, response.Street)
 		})
 	}
 }
@@ -157,7 +157,7 @@ func TestClientAdmFacade_Find(t *testing.T) {
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)
 			assert.Equal(tt.expect.data.Email, response.Email)
-			assert.Equal(tt.expect.data.Address, response.Address)
+			assert.Equal(tt.expect.data.Street, response.Street)
 		})
 	}
 }

@@ -12,18 +12,18 @@ type IAddProductUseCase struct {
 }
 
 // Execute provides a mock function with given fields: ctx, data
-func (_m *IAddProductUseCase) Execute(ctx context.Context, data repository.ProductData) (repository.ProductData, error) {
+func (_m *IAddProductUseCase) Execute(ctx context.Context, data repository.Product) (repository.Product, error) {
 	ret := _m.Called(ctx, data)
 
-	var r0 repository.ProductData
-	if rf, ok := ret.Get(0).(func(context.Context, repository.ProductData) repository.ProductData); ok {
+	var r0 repository.Product
+	if rf, ok := ret.Get(0).(func(context.Context, repository.Product) repository.Product); ok {
 		r0 = rf(ctx, data)
 	} else {
-		r0 = ret.Get(0).(repository.ProductData)
+		r0 = ret.Get(0).(repository.Product)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, repository.ProductData) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, repository.Product) error); ok {
 		r1 = rf(ctx, data)
 	} else {
 		r1 = ret.Error(1)

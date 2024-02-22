@@ -3,7 +3,6 @@ package domain
 import (
 	"fmt"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/repository"
 	"github.com/MarcoBuarque/monolito/internal/modules/shared/domain/entity"
 	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
 	"github.com/shopspring/decimal"
@@ -12,7 +11,7 @@ import (
 type TransactionEntity struct {
 	orderID string
 	amount  decimal.Decimal
-	status  repository.Status
+	status  string
 	entity.BaseEntity
 }
 
@@ -25,25 +24,24 @@ func NewTransaction(id, orderID, status string, amount decimal.Decimal) (Transac
 		return TransactionEntity{}, fmt.Errorf("transactionEntity: amount cannot be less than or equal zero")
 	}
 
-	parsedStatus := repository.Pending
-	if status != "" {
-		parsedStatus = repository.Status(status)
+	if status == "" {
+		status = "pending"
 	}
 
 	return TransactionEntity{
 		orderID:    orderID,
 		amount:     amount,
-		status:     parsedStatus,
-		BaseEntity: entity.CreateBaseEntity(valueobject.CreateID(id)),
+		status:     status,
+		BaseEntity: entity.NewBaseEntity(valueobject.NewID(id)),
 	}, nil
 }
 
-func (data TransactionEntity) Status() string          { return data.status.ToString() }
+func (data TransactionEntity) Status() string          { return data.status }
 func (data TransactionEntity) OrderID() string         { return data.orderID }
 func (data TransactionEntity) Amount() decimal.Decimal { return data.amount }
 
-func (data *TransactionEntity) Approve() { data.status = repository.Approved }
-func (data *TransactionEntity) Decline() { data.status = repository.Declined }
+func (data *TransactionEntity) Approve() { data.status = "approved" }
+func (data *TransactionEntity) Decline() { data.status = "declined" }
 
 func (data *TransactionEntity) Process() {
 	if data.amount.LessThan(decimal.NewFromInt(100)) {
@@ -52,15 +50,4 @@ func (data *TransactionEntity) Process() {
 	}
 
 	data.Approve()
-}
-
-func (data TransactionEntity) ToData() repository.Transaction {
-	return repository.Transaction{
-		ID:        string(data.ID().ToString()),
-		Status:    data.status,
-		OrderID:   data.orderID,
-		Amount:    data.amount,
-		CreatedAt: data.CreatedAt(),
-		UpdatedAt: data.UpdatedAt(),
-	}
 }

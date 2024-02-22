@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/repository"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 )
@@ -90,43 +89,26 @@ func TestNewTransaction(t *testing.T) {
 	}
 }
 
-func TestToData(t *testing.T) {
-	assert := assert.New(t)
-
-	entity := TransactionEntity{
-		orderID: "xpto",
-		status:  "declined",
-		amount:  decimal.NewFromInt(70),
-	}
-
-	dbData := entity.ToData()
-
-	assert.Equal(entity.ID().ToString(), dbData.ID)
-	assert.Equal(entity.OrderID(), dbData.OrderID)
-	assert.Equal(entity.Amount(), dbData.Amount)
-	assert.Equal(entity.Status(), dbData.Status.ToString())
-}
-
 func TestProcess(t *testing.T) {
 	assert := assert.New(t)
 
 	entity := TransactionEntity{
 		orderID: "xpto",
-		status:  repository.Pending,
+		status:  "pending",
 		amount:  decimal.NewFromInt(70),
 	}
 
-	assert.Equal(entity.Status(), repository.Pending.ToString())
+	assert.Equal(entity.Status(), "pending")
 	entity.Process()
 
-	assert.Equal(entity.Status(), repository.Declined.ToString())
+	assert.Equal(entity.Status(), "declined")
 
 	entity = TransactionEntity{
 		orderID: "xpto",
-		status:  repository.Pending,
+		status:  "pending",
 		amount:  decimal.NewFromInt(800),
 	}
 	entity.Process()
-	assert.Equal(entity.Status(), repository.Approved.ToString())
+	assert.Equal(entity.Status(), "approved")
 
 }

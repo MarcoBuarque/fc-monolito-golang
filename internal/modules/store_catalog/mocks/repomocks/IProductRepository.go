@@ -12,14 +12,14 @@ type IProductRepository struct {
 }
 
 // Find provides a mock function with given fields: ctx, id
-func (_m *IProductRepository) Find(ctx context.Context, id string) (repository.ProductData, error) {
+func (_m *IProductRepository) Find(ctx context.Context, id string) (repository.Product, error) {
 	ret := _m.Called(ctx, id)
 
-	var r0 repository.ProductData
-	if rf, ok := ret.Get(0).(func(context.Context, string) repository.ProductData); ok {
+	var r0 repository.Product
+	if rf, ok := ret.Get(0).(func(context.Context, string) repository.Product); ok {
 		r0 = rf(ctx, id)
 	} else {
-		r0 = ret.Get(0).(repository.ProductData)
+		r0 = ret.Get(0).(repository.Product)
 	}
 
 	var r1 error
@@ -33,15 +33,15 @@ func (_m *IProductRepository) Find(ctx context.Context, id string) (repository.P
 }
 
 // FindAll provides a mock function with given fields: ctx
-func (_m *IProductRepository) FindAll(ctx context.Context) ([]repository.ProductData, error) {
+func (_m *IProductRepository) FindAll(ctx context.Context) ([]repository.Product, error) {
 	ret := _m.Called(ctx)
 
-	var r0 []repository.ProductData
-	if rf, ok := ret.Get(0).(func(context.Context) []repository.ProductData); ok {
+	var r0 []repository.Product
+	if rf, ok := ret.Get(0).(func(context.Context) []repository.Product); ok {
 		r0 = rf(ctx)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]repository.ProductData)
+			r0 = ret.Get(0).([]repository.Product)
 		}
 	}
 
