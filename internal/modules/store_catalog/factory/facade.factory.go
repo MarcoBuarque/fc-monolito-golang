@@ -5,6 +5,7 @@ import (
 	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
 	findallproducts "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/usecase/find_all_products"
 	findproduct "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/usecase/find_product"
+	updatesalesprice "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/usecase/update_sales_price"
 	"github.com/MarcoBuarque/monolito/pkg/database"
 )
 
@@ -17,5 +18,6 @@ func NewStoreCatalogFacadeFactory() facade.IStoreCatalogFacade {
 	return facade.NewStoreCatalogFacade(
 		findallproducts.NewFindAllProductsUseCase(repo),
 		findproduct.NewFindProductUseCase(repo),
+		updatesalesprice.NewUpdateSalesPriceUseCase(repo),
 	)
 }

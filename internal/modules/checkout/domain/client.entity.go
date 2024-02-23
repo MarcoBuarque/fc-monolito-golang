@@ -9,8 +9,8 @@ import (
 
 type ClientEntity struct {
 	name    string
-	address valueobject.Address
 	email   string
+	address valueobject.Address
 	entity.BaseEntity
 }
 

@@ -13,20 +13,21 @@ import (
 )
 
 var (
-	facade             IStoreCatalogFacade
-	findAllUseCaseMock = &usecasemocks.IFindAllProductsUseCase{}
-	findUseCaseMock    = &usecasemocks.IFindProductUseCase{}
+	facade                 IStoreCatalogFacade
+	findAllUseCaseMock     = &usecasemocks.IFindAllProductsUseCase{}
+	findUseCaseMock        = &usecasemocks.IFindProductUseCase{}
+	updatePriceUseCaseMock = &usecasemocks.IUpdateSalesPriceUseCase{}
 )
 
 func TestMain(m *testing.M) {
-	facade = StoreCatalogFacade{findAllUseCase: findAllUseCaseMock, findUseCase: findUseCaseMock}
+	facade = StoreCatalogFacade{findAllUseCase: findAllUseCaseMock, findUseCase: findUseCaseMock, updatePriceUseCase: updatePriceUseCaseMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
 func TestNewStoreCatalogFacade(t *testing.T) {
-	response := NewStoreCatalogFacade(findAllUseCaseMock, findUseCaseMock)
+	response := NewStoreCatalogFacade(findAllUseCaseMock, findUseCaseMock, updatePriceUseCaseMock)
 
 	assert.Equal(t, facade, response)
 }
@@ -159,6 +160,61 @@ func TestStoreCatalogFacade_Find(t *testing.T) {
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)
 			assert.Equal(tt.expect.data.SalesPrice, response.SalesPrice)
+		})
+	}
+}
+
+func TestStoreCatalogFacade_UpdateSalesPrice(t *testing.T) {
+	assert := assert.New(t)
+
+	type args struct {
+		ctx       context.Context
+		productID string
+		price     float64
+	}
+
+	tests := []struct {
+		title     string
+		args      args
+		setupMock func()
+		expect    error
+	}{
+		{
+			title: "Should return an error from repository",
+			args: args{
+				ctx:       context.Background(),
+				productID: "product",
+				price:     10,
+			},
+			setupMock: func() {
+				updatePriceUseCaseMock.On("Execute", mock.Anything, mock.Anything, mock.Anything).Return(gorm.ErrInvalidData)
+			},
+			expect: gorm.ErrInvalidData,
+		},
+		{
+			title: "Success",
+			args: args{
+				ctx:       context.Background(),
+				productID: "product",
+				price:     10,
+			},
+			setupMock: func() {
+				// clean mock queue
+				updatePriceUseCaseMock.Mock = mock.Mock{}
+
+				updatePriceUseCaseMock.On("Execute", mock.Anything, mock.Anything, mock.Anything).Return(nil)
+			},
+			expect: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.title, func(t *testing.T) {
+			tt.setupMock()
+
+			err := facade.UpdateSalesPrice(tt.args.ctx, tt.args.productID, tt.args.price)
+			assert.Equal(tt.expect, err)
+
 		})
 	}
 }

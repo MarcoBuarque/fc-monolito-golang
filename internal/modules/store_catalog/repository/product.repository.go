@@ -39,3 +39,16 @@ func (repo ProductRepository) Find(ctx context.Context, id string) (Product, err
 
 	return *response, nil
 }
+
+func (repo ProductRepository) UpdateSalesPrice(ctx context.Context, id string, price float64) error {
+	if id == "" {
+		return fmt.Errorf("id cannot be empty")
+	}
+
+	if result := repo.db.WithContext(ctx).Where("id = ?", id).Update("sales_price", price); result.Error != nil {
+		// TODO: add log
+		return result.Error
+	}
+
+	return nil
+}

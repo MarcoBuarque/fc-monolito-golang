@@ -54,3 +54,17 @@ func (_m *IProductRepository) FindAll(ctx context.Context) ([]repository.Product
 
 	return r0, r1
 }
+
+// UpdateSalesPrice provides a mock function with given fields: ctx, id, price
+func (_m *IProductRepository) UpdateSalesPrice(ctx context.Context, id string, price float64) error {
+	ret := _m.Called(ctx, id, price)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, float64) error); ok {
+		r0 = rf(ctx, id, price)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
