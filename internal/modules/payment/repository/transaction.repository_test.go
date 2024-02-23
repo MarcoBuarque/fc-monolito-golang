@@ -102,5 +102,5 @@ func TestToData(t *testing.T) {
 	assert.Equal(entity.ID().ToString(), dbData.ID)
 	assert.Equal(entity.OrderID(), dbData.OrderID)
 	assert.Equal(entity.Amount(), dbData.Amount)
-	assert.Equal(entity.Status(), dbData.Status.ToString())
+	assert.Equal(entity.Status(), dbData.Status)
 }

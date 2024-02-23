@@ -102,7 +102,7 @@ func TestProcess(t *testing.T) {
 	assert.Equal(entity.Status(), types.Pending)
 	entity.Process()
 
-	assert.Equal(entity.Status(), "declined")
+	assert.Equal(entity.Status(), types.Declined)
 
 	entity = TransactionEntity{
 		orderID: "xpto",
@@ -110,5 +110,5 @@ func TestProcess(t *testing.T) {
 		amount:  decimal.NewFromInt(800),
 	}
 	entity.Process()
-	assert.Equal(entity.Status(), "approved")
+	assert.Equal(entity.Status(), types.Approved)
 }

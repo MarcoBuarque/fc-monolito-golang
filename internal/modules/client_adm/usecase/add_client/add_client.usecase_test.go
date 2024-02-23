@@ -8,6 +8,7 @@ import (
 
 	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/mocks/repomocks"
 	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
+	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"gorm.io/gorm"
@@ -35,9 +36,17 @@ func TestAddClientUseCase_Execute(t *testing.T) {
 	assert := assert.New(t)
 
 	product := repository.Client{
-		ID:    "xpto_id",
-		Name:  "xpto",
-		Email: "email",
+		ID:             "xpto_id",
+		Name:           "xpto",
+		Email:          "email",
+		DocumentType:   types.RG,
+		DocumentNumber: "123",
+		Street:         "string",
+		Number:         "string",
+		Complement:     "string",
+		City:           "string",
+		State:          "string",
+		ZipCode:        "string",
 	}
 
 	type args struct {
@@ -57,10 +66,46 @@ func TestAddClientUseCase_Execute(t *testing.T) {
 		expect    expect
 	}{
 		{
-			title: "should return an error for an invalid product",
+			title: "should return an error for an invalid document",
 			args: args{
 				ctx:     context.Background(),
 				product: repository.Client{},
+			},
+			setupMock: func() {},
+			expect: expect{
+				data: repository.Client{},
+				err:  fmt.Errorf("document: number cannot be empty"),
+			},
+		},
+		{
+			title: "should return an error for an invalid address",
+			args: args{
+				ctx: context.Background(),
+				product: repository.Client{
+					DocumentType:   types.RG,
+					DocumentNumber: "123",
+				},
+			},
+			setupMock: func() {},
+			expect: expect{
+				data: repository.Client{},
+				err:  fmt.Errorf("address: street cannot be empty"),
+			},
+		},
+		{
+			title: "should return an error for an invalid product",
+			args: args{
+				ctx: context.Background(),
+				product: repository.Client{
+					DocumentType:   types.RG,
+					DocumentNumber: "123",
+					Street:         "string",
+					Number:         "string",
+					Complement:     "string",
+					City:           "string",
+					State:          "string",
+					ZipCode:        "string",
+				},
 			},
 			setupMock: func() {},
 			expect: expect{

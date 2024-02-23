@@ -62,7 +62,7 @@ func TestNewClient(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.title, func(t *testing.T) {
-			response, err := NewClient(tt.args.id, tt.args.name, tt.args.email, tt.args.address)
+			response, err := NewClient(tt.args.id, tt.args.name, tt.args.email, valueobject.Document{}, tt.args.address)
 
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.data.Name(), response.Name())

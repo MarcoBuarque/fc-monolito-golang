@@ -41,7 +41,7 @@ func TestNewClientRepository(t *testing.T) {
 func TestClientRepository_Add(t *testing.T) {
 	assert := assert.New(t)
 
-	query := `INSERT INTO "clients" ("id","name","email","street","number","complement","city","state","zip_code","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`
+	query := `INSERT INTO "clients" ("id","name","email","document_type","document_number","street","number","complement","city","state","zip_code","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)`
 
 	type args struct {
 		ctx  context.Context
@@ -73,7 +73,7 @@ func TestClientRepository_Add(t *testing.T) {
 			},
 			setupMock: func() {
 				mockQueue.ExpectBegin()
-				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnResult(sqlmock.NewResult(1, 1))
+				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnResult(sqlmock.NewResult(1, 1))
 				mockQueue.ExpectCommit()
 			},
 			expect: nil,
@@ -163,7 +163,7 @@ func TestClientRepository_Find(t *testing.T) {
 func TestConvert(t *testing.T) {
 	assert := assert.New(t)
 
-	entity, err := domain.NewClient("", "xpto", "email", valueobject.Address{})
+	entity, err := domain.NewClient("", "xpto", "email", valueobject.Document{}, valueobject.Address{})
 	require.Nil(t, err)
 
 	dbData := Convert(entity)

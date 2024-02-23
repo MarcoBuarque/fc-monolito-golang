@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -131,6 +132,65 @@ func TestNewClient(t *testing.T) {
 			assert.Equal(tt.expect.data.City(), response.City())
 			assert.Equal(tt.expect.data.State(), response.State())
 			assert.Equal(tt.expect.data.ZipCode(), response.ZipCode())
+		})
+	}
+}
+
+func TestNewDocument(t *testing.T) {
+	assert := assert.New(t)
+
+	type args struct {
+		number  string
+		docType types.DocumentType
+	}
+
+	type expect struct {
+		data Document
+		err  error
+	}
+	tests := []struct {
+		title  string
+		args   args
+		expect expect
+	}{
+		{
+			title: "Should return an error when number is empty",
+			args:  args{},
+			expect: expect{
+				data: Document{}, err: fmt.Errorf("document: number cannot be empty"),
+			},
+		},
+		{
+			title: "Should return an error when document type is empty",
+			args: args{
+				number: "test_street",
+			},
+			expect: expect{
+				data: Document{}, err: fmt.Errorf("document: document type cannot be empty"),
+			},
+		},
+
+		{
+			title: "Sucess",
+			args: args{
+				number:  "test_number",
+				docType: types.RG,
+			},
+			expect: expect{
+				data: Document{
+					number:       "test_number",
+					documentType: types.RG,
+				}, err: nil,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.title, func(t *testing.T) {
+			response, err := NewDocument(tt.args.number, tt.args.docType)
+
+			assert.Equal(tt.expect.err, err)
+			assert.Equal(tt.expect.data.Number(), response.Number())
+			assert.Equal(tt.expect.data.DocumentType(), response.DocumentType())
 		})
 	}
 }
