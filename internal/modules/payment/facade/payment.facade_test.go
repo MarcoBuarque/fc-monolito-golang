@@ -7,6 +7,7 @@ import (
 
 	"github.com/MarcoBuarque/monolito/internal/modules/payment/mocks/usecasemocks"
 	"github.com/MarcoBuarque/monolito/internal/modules/payment/repository"
+	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -36,7 +37,7 @@ func TestPaymentFacade_Process(t *testing.T) {
 
 	product := repository.Transaction{
 		OrderID: "product",
-		Status:  "pending",
+		Status:  types.Pending,
 		Amount:  decimal.NewFromInt(100),
 	}
 

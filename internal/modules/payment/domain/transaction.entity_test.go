@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 )
@@ -14,7 +15,7 @@ func TestNewTransaction(t *testing.T) {
 	type args struct {
 		id      string
 		orderID string
-		status  string
+		status  types.Status
 		amount  decimal.Decimal
 	}
 
@@ -55,7 +56,7 @@ func TestNewTransaction(t *testing.T) {
 			expect: expect{
 				data: TransactionEntity{
 					orderID: "xpto",
-					status:  "pending",
+					status:  types.Pending,
 					amount:  decimal.NewFromInt(100),
 				}, err: nil,
 			},
@@ -94,21 +95,20 @@ func TestProcess(t *testing.T) {
 
 	entity := TransactionEntity{
 		orderID: "xpto",
-		status:  "pending",
+		status:  types.Pending,
 		amount:  decimal.NewFromInt(70),
 	}
 
-	assert.Equal(entity.Status(), "pending")
+	assert.Equal(entity.Status(), types.Pending)
 	entity.Process()
 
 	assert.Equal(entity.Status(), "declined")
 
 	entity = TransactionEntity{
 		orderID: "xpto",
-		status:  "pending",
+		status:  types.Pending,
 		amount:  decimal.NewFromInt(800),
 	}
 	entity.Process()
 	assert.Equal(entity.Status(), "approved")
-
 }
