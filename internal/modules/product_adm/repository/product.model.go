@@ -9,14 +9,16 @@ import (
 )
 
 type Product struct {
-	ID            string `gorm:"primarykey"`
-	Name          string
-	Description   string
-	PurchasePrice decimal.Decimal
-	Stock         int32
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
-	DeletedAt     gorm.DeletedAt `gorm:"index"`
+	ID            string          `gorm:"primarykey" json:"id"`
+	Name          string          `json:"name"`
+	Description   string          `json:"description"`
+	PurchasePrice decimal.Decimal `json:"purchase_price"`
+	SalesPrice    decimal.Decimal `json:"sales_price"`
+	Stock         int32           `json:"stock"`
+
+	CreatedAt time.Time      `json:"-"`
+	UpdatedAt time.Time      `json:"-"`
+	DeletedAt gorm.DeletedAt `json:"-"`
 }
 
 func Convert(data domain.ProductEntity) Product {
@@ -25,6 +27,7 @@ func Convert(data domain.ProductEntity) Product {
 		Name:          data.Name(),
 		Description:   data.Description(),
 		PurchasePrice: data.PurchasePrice(),
+		SalesPrice:    data.PurchasePrice(),
 		Stock:         data.Stock(),
 		CreatedAt:     data.CreatedAt(),
 		UpdatedAt:     data.UpdatedAt(),

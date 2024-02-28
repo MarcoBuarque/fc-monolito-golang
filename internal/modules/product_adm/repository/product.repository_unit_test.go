@@ -41,7 +41,7 @@ func TestProductRepository_NewProductRepository(t *testing.T) {
 func TestProductRepository_Add(t *testing.T) {
 	assert := assert.New(t)
 
-	query := `INSERT INTO "products" ("id","name","description","purchase_price","stock","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`
+	query := `INSERT INTO "products" ("id","name","description","purchase_price","sales_price","stock","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`
 
 	type args struct {
 		ctx  context.Context
@@ -62,7 +62,7 @@ func TestProductRepository_Add(t *testing.T) {
 			},
 			setupMock: func() {
 				mockQueue.ExpectBegin()
-				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnError(gorm.ErrRecordNotFound)
+				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnError(gorm.ErrRecordNotFound)
 				mockQueue.ExpectRollback()
 			},
 			expect: gorm.ErrRecordNotFound,
@@ -75,7 +75,7 @@ func TestProductRepository_Add(t *testing.T) {
 			},
 			setupMock: func() {
 				mockQueue.ExpectBegin()
-				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnResult(sqlmock.NewResult(1, 1))
+				mockQueue.ExpectExec(query).WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg(), sqlmock.AnyArg()).WillReturnResult(sqlmock.NewResult(1, 1))
 				mockQueue.ExpectCommit()
 			},
 			expect: nil,
@@ -173,6 +173,7 @@ func TestConvert(t *testing.T) {
 	assert.Equal(entity.ID().ToString(), dbData.ID)
 	assert.Equal(entity.Name(), dbData.Name)
 	assert.Equal(entity.PurchasePrice(), dbData.PurchasePrice)
+	assert.Equal(entity.PurchasePrice(), dbData.SalesPrice)
 	assert.Equal(entity.Stock(), dbData.Stock)
 	assert.Equal(entity.CreatedAt(), dbData.CreatedAt)
 	assert.Equal(entity.UpdatedAt(), dbData.UpdatedAt)

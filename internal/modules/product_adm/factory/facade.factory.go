@@ -1,6 +1,8 @@
 package factory
 
 import (
+	"sync"
+
 	"github.com/MarcoBuarque/monolito/config"
 	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/facade"
 	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
@@ -8,14 +10,21 @@ import (
 	checkstock "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/check_stock"
 )
 
-type ProductAdmFacadeFactory struct {
-}
+var (
+	once      sync.Once
+	singleton facade.ProductAdmFacade
+)
 
-func NewProductAdmFacadeFactory() facade.ProductAdmFacade {
+func createSingleton() {
 	repo := repository.NewProductRepository(config.GetDB())
 
-	return facade.NewProductAdmFacade(
+	singleton = facade.NewProductAdmFacade(
 		addproduct.NewAddProductUseCase(repo),
 		checkstock.NewCheckStockUseCase(repo),
 	)
+}
+func NewProductAdmFacadeFactory() facade.ProductAdmFacade {
+	once.Do(createSingleton)
+
+	return singleton
 }

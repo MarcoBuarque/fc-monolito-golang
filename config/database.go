@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"sync"
 
@@ -37,12 +38,14 @@ func GetDBMock() (*gorm.DB, sqlmock.Sqlmock) {
 func setupDB() {
 	dsn := os.Getenv("DB_DSN")
 	if dsn == "" {
-		dsn = "postgres://postgres:123456@0.0.0.0:5432/fc-monolito?sslmode=disable"
+		dsn = "postgres://postgres:123456@db:5432/fc-monolito?sslmode=prefer"
 	}
+
+	fmt.Println("LOCALLL", dsn)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{CreateBatchSize: 100})
 	if err != nil {
-		panic("failed to connect database")
+		panic(fmt.Sprintf("failed to connect database %w", err))
 	}
 
 	conn = db

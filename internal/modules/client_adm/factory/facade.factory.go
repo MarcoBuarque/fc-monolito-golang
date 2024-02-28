@@ -8,6 +8,8 @@ import (
 	findclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/find_client"
 )
 
+var singleton facade.ClientAdmFacade
+
 func NewClientAdmFacadeFactory() facade.ClientAdmFacade {
 	repo := repository.NewClientRepository(config.GetDB())
 

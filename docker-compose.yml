@@ -10,6 +10,8 @@ services:
       POSTGRES_PASSWORD: 123456
     ports:
       - "5432:5432"
+    networks:
+      - go-docker-net  
     volumes:
       - db-data:/var/lib/postgresql/data
   api:
