@@ -8,8 +8,8 @@ import (
 
 type BaseEntity struct {
 	id        valueobject.ID
-	createdAt time.Time
-	updatedAt time.Time
+	CreatedAt time.Time `gorm:"->:false;column:created_at" json:"-"`
+	UpdatedAt time.Time `gorm:"->:false;column:updated_at" json:"-"`
 }
 
 func NewBaseEntity(id valueobject.ID) BaseEntity {

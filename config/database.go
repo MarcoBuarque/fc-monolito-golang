@@ -1,11 +1,11 @@
 package config
 
 import (
+	"os"
 	"sync"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"gorm.io/driver/postgres"
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -35,7 +35,12 @@ func GetDBMock() (*gorm.DB, sqlmock.Sqlmock) {
 }
 
 func setupDB() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{CreateBatchSize: 100})
+	dsn := os.Getenv("DB_DSN")
+	if dsn == "" {
+		dsn = "postgres://postgres:123456@0.0.0.0:5432/fc-monolito?sslmode=disable"
+	}
+
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{CreateBatchSize: 100})
 	if err != nil {
 		panic("failed to connect database")
 	}

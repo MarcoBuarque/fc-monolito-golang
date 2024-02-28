@@ -25,9 +25,9 @@ type Client struct {
 	State      string
 	ZipCode    string
 
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	CreatedAt time.Time      `gorm:"->:false;column:created_at" json:"-"`
+	UpdatedAt time.Time      `gorm:"->:false;column:updated_at" json:"-"`
+	DeletedAt gorm.DeletedAt `gorm:"->:false;column:deleted_at" json:"-"`
 }
 
 func Convert(data domain.ClientEntity) Client {

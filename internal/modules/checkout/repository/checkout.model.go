@@ -28,9 +28,9 @@ type Order struct {
 	Client   Client         `gorm:"foreignKey:ID"`
 	Products []OrderProduct `gorm:"many2many:order_products;"`
 
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	CreatedAt time.Time      `gorm:"->:false;column:created_at" json:"-"`
+	UpdatedAt time.Time      `gorm:"->:false;column:updated_at" json:"-"`
+	DeletedAt gorm.DeletedAt `gorm:"->:false;column:deleted_at" json:"-"`
 }
 
 type OrderProduct struct {
@@ -39,9 +39,9 @@ type OrderProduct struct {
 	Price     decimal.Decimal
 	Quantity  int32
 
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	CreatedAt time.Time      `gorm:"->:false;column:created_at" json:"-"`
+	UpdatedAt time.Time      `gorm:"->:false;column:updated_at" json:"-"`
+	DeletedAt gorm.DeletedAt `gorm:"->:false;column:deleted_at" json:"-"`
 }
 
 func ConvertClient(data domain.ClientEntity) Client {
