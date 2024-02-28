@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/MarcoBuarque/monolito/config"
 	"github.com/MarcoBuarque/monolito/internal/modules/payment/domain"
-	"github.com/MarcoBuarque/monolito/pkg/database"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -21,7 +21,7 @@ var (
 )
 
 func TestMain(m *testing.M) {
-	db, mockQueue = database.GetDBMock()
+	db, mockQueue = config.GetDBMock()
 	repo = TransactionRepository{db}
 
 	exitVal := m.Run()

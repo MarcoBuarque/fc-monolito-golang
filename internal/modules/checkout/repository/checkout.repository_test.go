@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/MarcoBuarque/monolito/pkg/database"
+	"github.com/MarcoBuarque/monolito/config"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
@@ -20,7 +20,7 @@ var (
 )
 
 func TestMain(m *testing.M) {
-	db, mockQueue = database.GetDBMock()
+	db, mockQueue = config.GetDBMock()
 	repo = NewCheckoutRepository(db)
 
 	exitVal := m.Run()
