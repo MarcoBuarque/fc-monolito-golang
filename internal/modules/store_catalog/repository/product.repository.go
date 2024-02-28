@@ -15,7 +15,7 @@ func NewProductRepository(db *gorm.DB) ProductRepository {
 	return ProductRepository{db}
 }
 
-func (repo ProductRepository) FindAll(ctx context.Context) ([]Product, error) {
+func (repo ProductRepository) ListProducts(ctx context.Context) ([]Product, error) {
 	var response []Product
 
 	if result := repo.db.WithContext(ctx).Find(&response); result.Error != nil {
@@ -26,7 +26,7 @@ func (repo ProductRepository) FindAll(ctx context.Context) ([]Product, error) {
 	return response, nil
 }
 
-func (repo ProductRepository) Find(ctx context.Context, id string) (Product, error) {
+func (repo ProductRepository) GetProduct(ctx context.Context, id string) (Product, error) {
 	if id == "" {
 		return Product{}, fmt.Errorf("id cannot be empty")
 	}

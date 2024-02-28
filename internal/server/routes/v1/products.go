@@ -8,14 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddProduct(c *gin.Context) {
+func CreateProduct(c *gin.Context) {
 	var data repository.Product
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": err.Error(), "data": nil})
 		return
 	}
 
-	response, err := productAdmFactory.NewProductAdmFacadeFactory().AddProduct(c.Request.Context(), data)
+	response, err := productAdmFactory.NewProductAdmFacadeFactory().CreateProduct(c.Request.Context(), data)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": err.Error(), "data": nil})
 		return

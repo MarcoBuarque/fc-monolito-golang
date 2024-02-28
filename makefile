@@ -12,13 +12,13 @@ deploy-docker:
 generate-mock:
 	# product adm
 	mockery --dir=internal/modules/product_adm/repository --name=IProductRepository --output=internal/modules/product_adm/mocks/repomocks  --outpkg=repomocks
-	mockery --dir=internal/modules/product_adm/usecase/add_product --name=IAddProductUseCase --output=internal/modules/product_adm/mocks/usecasemocks  --outpkg=usecasemocks
+	mockery --dir=internal/modules/product_adm/usecase/create_product --name=ICreateProductUseCase --output=internal/modules/product_adm/mocks/usecasemocks  --outpkg=usecasemocks
 	mockery --dir=internal/modules/product_adm/usecase/check_stock --name=ICheckStockUseCase --output=internal/modules/product_adm/mocks/usecasemocks  --outpkg=usecasemocks
 
 	# store_catalog
 	mockery --dir=internal/modules/store_catalog/repository --name=IProductRepository --output=internal/modules/store_catalog/mocks/repomocks  --outpkg=repomocks
-	mockery --dir=internal/modules/store_catalog/usecase/find_all_products --name=IFindAllProductsUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
-	mockery --dir=internal/modules/store_catalog/usecase/find_product --name=IFindProductUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
+	mockery --dir=internal/modules/store_catalog/usecase/list_products --name=IListProductsUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
+	mockery --dir=internal/modules/store_catalog/usecase/get_product --name=IGetProductUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
 	mockery --dir=internal/modules/store_catalog/usecase/update_sales_price --name=IUpdateSalesPriceUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
 
 	# client_adm

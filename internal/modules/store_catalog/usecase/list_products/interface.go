@@ -1,4 +1,4 @@
-package findallproducts
+package listproducts
 
 import (
 	"context"
@@ -6,6 +6,6 @@ import (
 	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
 )
 
-type IFindAllProductsUseCase interface {
+type IListProductsUseCase interface {
 	Execute(ctx context.Context) ([]repository.Product, error)
 }

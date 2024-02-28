@@ -4,20 +4,20 @@ import (
 	"context"
 
 	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
-	addproduct "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/add_product"
 	checkstock "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/check_stock"
+	addproduct "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/create_product"
 )
 
 type ProductAdmFacade struct {
-	addUseCase        addproduct.IAddProductUseCase
+	addUseCase        addproduct.ICreateProductUseCase
 	checkStockUseCase checkstock.ICheckStockUseCase
 }
 
-func NewProductAdmFacade(addUseCase addproduct.IAddProductUseCase, checkStockUseCase checkstock.ICheckStockUseCase) ProductAdmFacade {
+func NewProductAdmFacade(addUseCase addproduct.ICreateProductUseCase, checkStockUseCase checkstock.ICheckStockUseCase) ProductAdmFacade {
 	return ProductAdmFacade{addUseCase, checkStockUseCase}
 }
 
-func (facade ProductAdmFacade) AddProduct(ctx context.Context, data repository.Product) (repository.Product, error) {
+func (facade ProductAdmFacade) CreateProduct(ctx context.Context, data repository.Product) (repository.Product, error) {
 	return facade.addUseCase.Execute(ctx, data)
 }
 

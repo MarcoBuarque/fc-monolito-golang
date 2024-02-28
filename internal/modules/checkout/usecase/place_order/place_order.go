@@ -93,7 +93,7 @@ func (controller PlaceOrderUseCase) validateProducts(ctx context.Context, produc
 func (controller PlaceOrderUseCase) getProducts(ctx context.Context, products []ProductInfo) ([]checkoutDomain.ProductEntity, error) {
 	productsEntity := make([]checkoutDomain.ProductEntity, len(products))
 	for i := 0; i < len(products); i++ {
-		productData, err := controller.catalogFacade.Find(ctx, products[i].ProductID)
+		productData, err := controller.catalogFacade.GetProduct(ctx, products[i].ProductID)
 		if err != nil {
 			return []checkoutDomain.ProductEntity{}, err
 		}

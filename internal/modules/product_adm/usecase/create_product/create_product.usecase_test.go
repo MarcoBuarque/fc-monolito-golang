@@ -15,24 +15,24 @@ import (
 )
 
 var (
-	useCase  AddProductUseCase
+	useCase  CreateProductUseCase
 	repoMock = &repomocks.IProductRepository{}
 )
 
 func TestMain(m *testing.M) {
-	useCase = AddProductUseCase{productRepository: repoMock}
+	useCase = CreateProductUseCase{productRepository: repoMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
-func TestNewAddProductUseCase(t *testing.T) {
-	response := NewAddProductUseCase(repoMock)
+func TestNewCreateProductUseCase(t *testing.T) {
+	response := NewCreateProductUseCase(repoMock)
 
 	assert.Equal(t, useCase, response)
 }
 
-func TestAddProductUseCase_Execute(t *testing.T) {
+func TestCreateProductUseCase_Execute(t *testing.T) {
 	assert := assert.New(t)
 
 	product := repository.Product{

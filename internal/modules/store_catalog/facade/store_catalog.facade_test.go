@@ -13,26 +13,26 @@ import (
 )
 
 var (
-	facade                 IStoreCatalogFacade
-	findAllUseCaseMock     = &usecasemocks.IFindAllProductsUseCase{}
-	findUseCaseMock        = &usecasemocks.IFindProductUseCase{}
-	updatePriceUseCaseMock = &usecasemocks.IUpdateSalesPriceUseCase{}
+	facade                  IStoreCatalogFacade
+	listProductsUseCaseMock = &usecasemocks.IListProductsUseCase{}
+	findUseCaseMock         = &usecasemocks.IGetProductUseCase{}
+	updatePriceUseCaseMock  = &usecasemocks.IUpdateSalesPriceUseCase{}
 )
 
 func TestMain(m *testing.M) {
-	facade = StoreCatalogFacade{findAllUseCase: findAllUseCaseMock, findUseCase: findUseCaseMock, updatePriceUseCase: updatePriceUseCaseMock}
+	facade = StoreCatalogFacade{findAllUseCase: listProductsUseCaseMock, findUseCase: findUseCaseMock, updatePriceUseCase: updatePriceUseCaseMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
 func TestNewStoreCatalogFacade(t *testing.T) {
-	response := NewStoreCatalogFacade(findAllUseCaseMock, findUseCaseMock, updatePriceUseCaseMock)
+	response := NewStoreCatalogFacade(listProductsUseCaseMock, findUseCaseMock, updatePriceUseCaseMock)
 
 	assert.Equal(t, facade, response)
 }
 
-func TestStoreCatalogFacade_FindAll(t *testing.T) {
+func TestStoreCatalogFacade_ListProducts(t *testing.T) {
 	assert := assert.New(t)
 
 	products := []repository.Product{
@@ -54,7 +54,7 @@ func TestStoreCatalogFacade_FindAll(t *testing.T) {
 		{
 			title: "Should return an error from repository",
 			setupMock: func() {
-				findAllUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return([]repository.Product{}, gorm.ErrInvalidData)
+				listProductsUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return([]repository.Product{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
 				data: []repository.Product{},
@@ -65,9 +65,9 @@ func TestStoreCatalogFacade_FindAll(t *testing.T) {
 			title: "Success",
 			setupMock: func() {
 				// clean mock queue
-				findAllUseCaseMock.Mock = mock.Mock{}
+				listProductsUseCaseMock.Mock = mock.Mock{}
 
-				findAllUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(products, nil)
+				listProductsUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(products, nil)
 			},
 			expect: expect{
 				data: products,
@@ -80,7 +80,7 @@ func TestStoreCatalogFacade_FindAll(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := facade.FindAll(context.TODO())
+			response, err := facade.ListProducts(context.TODO())
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(len(tt.expect.data), len(response))
 
@@ -93,7 +93,7 @@ func TestStoreCatalogFacade_FindAll(t *testing.T) {
 	}
 }
 
-func TestStoreCatalogFacade_Find(t *testing.T) {
+func TestStoreCatalogFacade_GetProduct(t *testing.T) {
 	assert := assert.New(t)
 
 	product := repository.Product{
@@ -155,7 +155,7 @@ func TestStoreCatalogFacade_Find(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := facade.Find(tt.args.ctx, tt.args.productID)
+			response, err := facade.GetProduct(tt.args.ctx, tt.args.productID)
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)

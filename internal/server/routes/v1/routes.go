@@ -7,7 +7,7 @@ func SetupRoutes(router *gin.Engine) {
 	products := api.Group("/products")
 	// products.GET("")
 	// products.GET("/:productID")
-	products.POST("/", AddProduct)
+	products.POST("/", CreateProduct)
 
 	// clients := api.Group("clients")
 	// clients.POST("")

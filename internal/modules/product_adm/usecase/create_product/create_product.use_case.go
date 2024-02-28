@@ -8,15 +8,15 @@ import (
 )
 
 // Controller
-type AddProductUseCase struct {
+type CreateProductUseCase struct {
 	productRepository repository.IProductRepository
 }
 
-func NewAddProductUseCase(repository repository.IProductRepository) AddProductUseCase {
-	return AddProductUseCase{productRepository: repository}
+func NewCreateProductUseCase(repository repository.IProductRepository) CreateProductUseCase {
+	return CreateProductUseCase{productRepository: repository}
 }
 
-func (controller AddProductUseCase) Execute(ctx context.Context, data repository.Product) (repository.Product, error) {
+func (controller CreateProductUseCase) Execute(ctx context.Context, data repository.Product) (repository.Product, error) {
 	entity, err := domain.NewProduct(data.ID, data.Name, data.Description, data.PurchasePrice, data.Stock)
 	if err != nil {
 		// TODO: add log

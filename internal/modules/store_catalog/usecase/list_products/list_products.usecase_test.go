@@ -1,4 +1,4 @@
-package findproduct
+package listproducts
 
 import (
 	"context"
@@ -14,31 +14,32 @@ import (
 )
 
 var (
-	useCase  FindProductUseCase
+	useCase  ListProductsUseCase
 	repoMock = &repomocks.IProductRepository{}
 )
 
 func TestMain(m *testing.M) {
-	useCase = FindProductUseCase{productRepository: repoMock}
+	useCase = ListProductsUseCase{productRepository: repoMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
-func TestNewFindProductUseCase(t *testing.T) {
-	response := NewFindProductUseCase(repoMock)
+func TestNewListProductsUseCase(t *testing.T) {
+	response := NewListProductsUseCase(repoMock)
 
 	assert.Equal(t, useCase, response)
 }
 
-func TestFindProductUseCase_Execute(t *testing.T) {
+func TestListProductsUseCase_Execute(t *testing.T) {
 	assert := assert.New(t)
 
-	product := repository.Product{
-		ID:          "xpto_id",
-		Name:        "xpto",
-		Description: "xpto_description",
-		SalesPrice:  decimal.NewFromInt(10),
+	products := []repository.Product{
+		{
+			ID:          "xpto_id",
+			Name:        "xpto",
+			Description: "xpto_description",
+			SalesPrice:  decimal.NewFromInt(10)},
 	}
 
 	type args struct {
@@ -46,7 +47,7 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 	}
 
 	type expect struct {
-		data repository.Product
+		data []repository.Product
 		err  error
 	}
 
@@ -62,10 +63,10 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 				ctx: context.Background(),
 			},
 			setupMock: func() {
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.Product{}, gorm.ErrInvalidData)
+				repoMock.On("FindAll", mock.Anything).Return([]repository.Product{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
-				data: repository.Product{},
+				data: []repository.Product{},
 				err:  gorm.ErrInvalidData,
 			},
 		},
@@ -78,10 +79,10 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 				// clean mock queue
 				repoMock.Mock = mock.Mock{}
 
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(product, nil)
+				repoMock.On("FindAll", mock.Anything).Return(products, nil)
 			},
 			expect: expect{
-				data: product,
+				data: products,
 				err:  nil,
 			},
 		},
@@ -91,12 +92,15 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := useCase.Execute(tt.args.ctx, "xpto")
+			response, err := useCase.Execute(tt.args.ctx)
 			assert.Equal(tt.expect.err, err)
+			assert.Equal(len(tt.expect.data), len(response))
 
-			assert.Equal(tt.expect.data.ID, response.ID)
-			assert.Equal(tt.expect.data.Name, response.Name)
-			assert.Equal(tt.expect.data.SalesPrice, response.SalesPrice)
+			for index, product := range response {
+				assert.Equal(tt.expect.data[index].ID, product.ID)
+				assert.Equal(tt.expect.data[index].Name, product.Name)
+				assert.Equal(tt.expect.data[index].SalesPrice, product.SalesPrice)
+			}
 		})
 	}
 }

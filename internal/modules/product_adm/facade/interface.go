@@ -7,6 +7,6 @@ import (
 )
 
 type IProductAdmFacade interface {
-	AddProduct(ctx context.Context, data repository.Product) (repository.Product, error)
+	CreateProduct(ctx context.Context, data repository.Product) (repository.Product, error)
 	CheckStock(ctx context.Context, productID string) (int32, error)
 }

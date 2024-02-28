@@ -15,7 +15,7 @@ import (
 
 var (
 	facade         ProductAdmFacade
-	addProductMock = &usecasemocks.IAddProductUseCase{}
+	addProductMock = &usecasemocks.ICreateProductUseCase{}
 	checkStockMock = &usecasemocks.ICheckStockUseCase{}
 )
 
@@ -32,7 +32,7 @@ func TestNewProductAdmFacade(t *testing.T) {
 	assert.Equal(t, facade, response)
 }
 
-func TestProductAdmFacade_AddProduct(t *testing.T) {
+func TestProductAdmFacade_CreateProduct(t *testing.T) {
 	assert := assert.New(t)
 
 	product := repository.Product{
@@ -96,7 +96,7 @@ func TestProductAdmFacade_AddProduct(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := facade.AddProduct(tt.args.ctx, tt.args.product)
+			response, err := facade.CreateProduct(tt.args.ctx, tt.args.product)
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)

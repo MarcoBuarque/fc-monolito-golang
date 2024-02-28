@@ -26,6 +26,5 @@ func SetupServer() *http.Server {
 }
 
 func Shutdown(ctx context.Context) error {
-
 	return nil
 }
