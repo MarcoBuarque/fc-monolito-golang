@@ -1,9 +1,13 @@
 migrate:
-	migrate -database ${DB_POSTGRES_URL} -path ./migrations up
+	migrate -database "postgres://postgres:123456@0.0.0.0:5432/fc-monolito?sslmode=disable" -path ./migrations up
 
 run-test:
 	go test ./... -coverprofile=c.out
 	go tool cover -html="c.out"
+
+deploy-docker:
+	docker build -t go-docker-image .
+	docker compose up	
 
 generate-mock:
 	# product adm

@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
   db:
@@ -12,6 +12,19 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
-
+  api:
+      image: go-docker-image:latest #Our go-docker image here
+      container_name: 'go-docker_api'
+      ports:
+          - '8080:8080'
+      volumes:
+          - ./:/go/src/app/
+          - ./go.mod:/go/src/app/go.mod
+      restart: always
+      networks:
+          - go-docker-net    
+networks:
+  go-docker-net:
+    driver: bridge
 volumes:
   db-data:
