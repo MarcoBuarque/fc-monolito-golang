@@ -89,7 +89,6 @@ func TestClientRepository_Add(t *testing.T) {
 			assert.Nil(mockQueue.ExpectationsWereMet())
 		})
 	}
-
 }
 
 func TestClientRepository_Find(t *testing.T) {

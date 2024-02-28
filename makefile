@@ -27,3 +27,5 @@ generate-mock:
 	mockery --dir=internal/modules/payment/usecase/process_payment --name=IProcessPaymentUseCase --output=internal/modules/payment/mocks/usecasemocks  --outpkg=usecasemocks
 
 	# checkout	
+	mockery --dir=internal/modules/checkout/repository --name=ICheckoutRepository --output=internal/modules/checkout/mocks/repomocks  --outpkg=repomocks
+	mockery --dir=internal/modules/checkout/usecase/place_order --name=IPlaceOrderUseCase --output=internal/modules/checkout/mocks/usecasemocks  --outpkg=usecasemocks	

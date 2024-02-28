@@ -17,5 +17,9 @@ CREATE TABLE IF NOT EXISTS order_products (
     product_id VARCHAR(255) REFERENCES products(id),
     quantity INTEGER NOT NULL CHECK(quantity > 0),
     price DECIMAL(10, 2) NOT NULL CHECK(price > 0),
-    PRIMARY KEY (order_id, product_id)
+    PRIMARY KEY (order_id, product_id),
+
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP
 );
