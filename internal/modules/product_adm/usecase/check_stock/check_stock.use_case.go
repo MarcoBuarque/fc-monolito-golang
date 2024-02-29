@@ -17,7 +17,7 @@ func NewCheckStockUseCase(repository repository.IProductRepository) CheckStockUs
 
 func (controller CheckStockUseCase) Execute(ctx context.Context, id string) (int32, error) {
 
-	response, err := controller.productRepository.Find(ctx, id)
+	response, err := controller.productRepository.GetProduct(ctx, id)
 	if err != nil {
 		// TODO: ADD LOG
 		return 0, err

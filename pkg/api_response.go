@@ -8,6 +8,14 @@ type ApiResponse[T any] struct {
 	Data            T      `json:"data"`
 }
 
+func BuildCustomResponse(status, message string) ApiResponse[any] {
+	return ApiResponse[any]{
+		ResponseKey:     status,
+		ResponseMessage: message,
+		Data:            nil,
+	}
+}
+
 func Null() interface{} {
 	return nil
 }

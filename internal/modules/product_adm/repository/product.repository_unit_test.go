@@ -38,7 +38,7 @@ func TestProductRepository_NewProductRepository(t *testing.T) {
 	assert.Equal(repo, response)
 }
 
-func TestProductRepository_Add(t *testing.T) {
+func TestProductRepository_CreateProduct(t *testing.T) {
 	assert := assert.New(t)
 
 	query := `INSERT INTO "products" ("id","name","description","purchase_price","sales_price","stock","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`
@@ -85,7 +85,7 @@ func TestProductRepository_Add(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			err := repo.Add(tt.args.ctx, tt.args.data)
+			err := repo.CreateProduct(tt.args.ctx, tt.args.data)
 
 			assert.Equal(tt.expect, err)
 		})
@@ -94,7 +94,7 @@ func TestProductRepository_Add(t *testing.T) {
 	assert.Nil(mockQueue.ExpectationsWereMet())
 }
 
-func TestProductRepository_Find(t *testing.T) {
+func TestProductRepository_GetProduct(t *testing.T) {
 	assert := assert.New(t)
 
 	query := `SELECT * FROM "products" WHERE "products"."deleted_at" IS NULL AND "products"."id" = $1 ORDER BY "products"."id" LIMIT $2`
@@ -153,7 +153,7 @@ func TestProductRepository_Find(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := repo.Find(tt.args.ctx, tt.args.productID)
+			response, err := repo.GetProduct(tt.args.ctx, tt.args.productID)
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.data, response)
 		})

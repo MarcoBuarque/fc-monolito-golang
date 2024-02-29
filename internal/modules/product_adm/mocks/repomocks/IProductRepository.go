@@ -11,8 +11,8 @@ type IProductRepository struct {
 	mock.Mock
 }
 
-// Add provides a mock function with given fields: ctx, data
-func (_m *IProductRepository) Add(ctx context.Context, data repository.Product) error {
+// CreateProduct provides a mock function with given fields: ctx, data
+func (_m *IProductRepository) CreateProduct(ctx context.Context, data repository.Product) error {
 	ret := _m.Called(ctx, data)
 
 	var r0 error
@@ -25,8 +25,8 @@ func (_m *IProductRepository) Add(ctx context.Context, data repository.Product) 
 	return r0
 }
 
-// Find provides a mock function with given fields: ctx, id
-func (_m *IProductRepository) Find(ctx context.Context, id string) (repository.Product, error) {
+// GetProduct provides a mock function with given fields: ctx, id
+func (_m *IProductRepository) GetProduct(ctx context.Context, id string) (repository.Product, error) {
 	ret := _m.Called(ctx, id)
 
 	var r0 repository.Product

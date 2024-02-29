@@ -25,7 +25,7 @@ func (controller CreateProductUseCase) Execute(ctx context.Context, data reposit
 
 	convertedData := repository.Convert(entity)
 
-	if err := controller.productRepository.Add(ctx, convertedData); err != nil {
+	if err := controller.productRepository.CreateProduct(ctx, convertedData); err != nil {
 		// TODO: add log
 		return repository.Product{}, err
 	}
