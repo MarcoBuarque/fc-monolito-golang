@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	v1 "github.com/MarcoBuarque/monolito/internal/server/routes/v1"
+	"github.com/MarcoBuarque/monolito/pkg"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,10 @@ func setupHandler() *gin.Engine {
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
+
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, pkg.BuildCustomResponse("ROUTE_NOT_FOUND", "This route does not exist"))
+	})
 
 	v1.SetupRoutes(router)
 
