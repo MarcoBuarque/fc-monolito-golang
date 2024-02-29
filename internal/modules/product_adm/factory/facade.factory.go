@@ -23,7 +23,7 @@ func createSingleton() {
 		checkstock.NewCheckStockUseCase(repo),
 	)
 }
-func NewProductAdmFacadeFactory() facade.ProductAdmFacade {
+func NewProductAdmFacadeFactory() facade.IProductAdmFacade {
 	once.Do(createSingleton)
 
 	return singleton

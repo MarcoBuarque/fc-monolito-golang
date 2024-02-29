@@ -17,4 +17,4 @@ RUN go install -mod=mod github.com/githubnemo/CompileDaemon
 EXPOSE 8080
 
 # Command to run the executable
-ENTRYPOINT CompileDaemon --build="go build ./cmd/main.go" --command="./main"
+ENTRYPOINT CompileDaemon --build="go build -o app ./cmd/api/main.go" --command="./app"

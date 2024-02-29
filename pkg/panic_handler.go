@@ -33,7 +33,7 @@ func PanicHandler(c *gin.Context) {
 
 		switch key {
 		case
-			constant.DataNotFound.GetResponseStatus():
+			constant.DataNotFound.GetResponseStatus(), constant.InvalidRequest.GetResponseStatus():
 			c.JSON(http.StatusBadRequest, BuildResponse_(key, msg, Null()))
 			c.Abort()
 		case

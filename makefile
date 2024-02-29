@@ -9,6 +9,9 @@ deploy-docker:
 	docker build -t go-docker-image .
 	docker compose up	
 
+generate-swagger:
+	swag init -g ./cmd/api/main.go -o cmd/api/swagger
+
 generate-mock:
 	# product adm
 	mockery --dir=internal/modules/product_adm/repository --name=IProductRepository --output=internal/modules/product_adm/mocks/repomocks  --outpkg=repomocks
