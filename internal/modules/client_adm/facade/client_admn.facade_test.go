@@ -14,8 +14,8 @@ import (
 
 var (
 	facade                  IClientAdmFacade
-	createClientUseCaseMock = &usecasemocks.IAddClientUseCase{}
-	getClientUseCaseMock    = &usecasemocks.IFindClientUseCase{}
+	createClientUseCaseMock = &usecasemocks.ICreateClientUseCase{}
+	getClientUseCaseMock    = &usecasemocks.IGetClientUseCase{}
 )
 
 func TestMain(m *testing.M) {

@@ -11,8 +11,8 @@ type ICheckoutRepository struct {
 	mock.Mock
 }
 
-// AddOrder provides a mock function with given fields: ctx, order
-func (_m *ICheckoutRepository) AddOrder(ctx context.Context, order repository.Order) error {
+// CreateOrder provides a mock function with given fields: ctx, order
+func (_m *ICheckoutRepository) CreateOrder(ctx context.Context, order repository.Order) error {
 	ret := _m.Called(ctx, order)
 
 	var r0 error
@@ -25,8 +25,8 @@ func (_m *ICheckoutRepository) AddOrder(ctx context.Context, order repository.Or
 	return r0
 }
 
-// FindOrder provides a mock function with given fields: ctx, orderID
-func (_m *ICheckoutRepository) FindOrder(ctx context.Context, orderID string) (repository.Order, error) {
+// GetOrder provides a mock function with given fields: ctx, orderID
+func (_m *ICheckoutRepository) GetOrder(ctx context.Context, orderID string) (repository.Order, error) {
 	ret := _m.Called(ctx, orderID)
 
 	var r0 repository.Order

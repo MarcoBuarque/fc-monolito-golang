@@ -99,7 +99,7 @@ func TestCheckoutRepository_CreateClientOrder(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			err := repo.AddOrder(tt.args.ctx, tt.args.data)
+			err := repo.CreateOrder(tt.args.ctx, tt.args.data)
 
 			assert.Equal(tt.expect, err)
 			assert.Nil(mockQueue.ExpectationsWereMet())
@@ -107,7 +107,7 @@ func TestCheckoutRepository_CreateClientOrder(t *testing.T) {
 	}
 }
 
-func TestCheckoutRepository_GetClientOrder(t *testing.T) {
+func TestCheckoutRepository_GetOrder(t *testing.T) {
 	type fields struct {
 		db *gorm.DB
 	}
@@ -129,7 +129,7 @@ func TestCheckoutRepository_GetClientOrder(t *testing.T) {
 			repo := CheckoutRepository{
 				db: tt.fields.db,
 			}
-			got, err := repo.FindOrder(tt.args.ctx, tt.args.orderID)
+			got, err := repo.GetOrder(tt.args.ctx, tt.args.orderID)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CheckoutRepository.FindOrder() error = %v, wantErr %v", err, tt.wantErr)
 				return

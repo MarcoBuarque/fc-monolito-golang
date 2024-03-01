@@ -1,20 +1,32 @@
 package factory
 
 import (
+	"sync"
+
 	"github.com/MarcoBuarque/monolito/config"
 	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/facade"
 	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
-	addclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/create_client"
-	findclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/get_client"
+	createclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/create_client"
+	getclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/get_client"
 )
 
-var singleton facade.ClientAdmFacade
+var (
+	once      sync.Once
+	singleton facade.ClientAdmFacade
+)
 
-func NewClientAdmFacadeFactory() facade.ClientAdmFacade {
+func createSingleton() {
 	repo := repository.NewClientRepository(config.GetDB())
 
-	return facade.NewClientAdmFacade(
-		addclient.NewCreateClientUseCase(repo),
-		findclient.NewGetClientUseCase(repo),
+	singleton = facade.NewClientAdmFacade(
+		createclient.NewCreateClientUseCase(repo),
+		getclient.NewGetClientUseCase(repo),
 	)
+}
+
+func NewClientAdmFacadeFactory() facade.ClientAdmFacade {
+
+	once.Do(createSingleton)
+
+	return singleton
 }

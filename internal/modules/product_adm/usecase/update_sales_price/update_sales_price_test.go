@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 	os.Exit(exitVal)
 }
 
-func TestNewFindProductUseCase(t *testing.T) {
+func TestNewUpdateSalesPriceUseCase(t *testing.T) {
 	response := NewUpdateSalesPriceUseCase(repoMock)
 
 	assert.Equal(t, useCase, response)

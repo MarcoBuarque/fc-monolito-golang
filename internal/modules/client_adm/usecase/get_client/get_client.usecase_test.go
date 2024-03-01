@@ -60,7 +60,7 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 				ctx: context.Background(),
 			},
 			setupMock: func() {
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.Client{}, gorm.ErrInvalidData)
+				repoMock.On("GetClient", mock.Anything, mock.Anything).Return(repository.Client{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
 				data: repository.Client{},
@@ -76,7 +76,7 @@ func TestFindProductUseCase_Execute(t *testing.T) {
 				// clean mock queue
 				repoMock.Mock = mock.Mock{}
 
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(product, nil)
+				repoMock.On("GetClient", mock.Anything, mock.Anything).Return(product, nil)
 			},
 			expect: expect{
 				data: product,

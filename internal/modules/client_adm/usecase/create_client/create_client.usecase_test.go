@@ -120,7 +120,7 @@ func TestAddClientUseCase_Execute(t *testing.T) {
 				product: product,
 			},
 			setupMock: func() {
-				repoMock.On("Add", mock.Anything, mock.Anything).Return(gorm.ErrInvalidData)
+				repoMock.On("CreateClient", mock.Anything, mock.Anything).Return(gorm.ErrInvalidData)
 			},
 			expect: expect{
 				data: repository.Client{},
@@ -137,7 +137,7 @@ func TestAddClientUseCase_Execute(t *testing.T) {
 				// clean mock queue
 				repoMock.Mock = mock.Mock{}
 
-				repoMock.On("Add", mock.Anything, mock.Anything).Return(nil)
+				repoMock.On("CreateClient", mock.Anything, mock.Anything).Return(nil)
 			},
 			expect: expect{
 				data: product,

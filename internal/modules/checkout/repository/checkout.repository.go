@@ -15,7 +15,7 @@ func NewCheckoutRepository(db *gorm.DB) CheckoutRepository {
 	return CheckoutRepository{db}
 }
 
-func (repo CheckoutRepository) AddOrder(ctx context.Context, data Order) error {
+func (repo CheckoutRepository) CreateOrder(ctx context.Context, data Order) error {
 	order, products := data.convertToCreate()
 
 	tx := repo.db.WithContext(ctx).Begin()
@@ -38,7 +38,7 @@ func (repo CheckoutRepository) AddOrder(ctx context.Context, data Order) error {
 	return nil
 }
 
-func (repo CheckoutRepository) FindOrder(ctx context.Context, orderID string) (Order, error) {
+func (repo CheckoutRepository) GetOrder(ctx context.Context, orderID string) (Order, error) {
 	if orderID == "" {
 		return Order{}, fmt.Errorf("id cannot be zero")
 	}

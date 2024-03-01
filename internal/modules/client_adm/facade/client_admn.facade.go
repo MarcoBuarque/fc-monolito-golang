@@ -13,8 +13,8 @@ type ClientAdmFacade struct {
 	getUseCase    getclient.IGetClientUseCase
 }
 
-func NewClientAdmFacade(findAllUseCase createclient.ICreateClientUseCase, findUseCase getclient.IGetClientUseCase) ClientAdmFacade {
-	return ClientAdmFacade{findAllUseCase, findUseCase}
+func NewClientAdmFacade(listUsersUseCase createclient.ICreateClientUseCase, getUseCase getclient.IGetClientUseCase) ClientAdmFacade {
+	return ClientAdmFacade{listUsersUseCase, getUseCase}
 }
 
 func (facade ClientAdmFacade) CreateClient(ctx context.Context, data repository.Client) (repository.Client, error) {

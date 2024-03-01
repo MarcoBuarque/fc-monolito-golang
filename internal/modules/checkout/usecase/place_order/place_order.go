@@ -63,7 +63,7 @@ func (controller PlaceOrderUseCase) Execute(ctx context.Context, clientID string
 
 	orderData := repository.Convert(order)
 
-	if err := controller.repo.AddOrder(ctx, orderData); err != nil {
+	if err := controller.repo.CreateOrder(ctx, orderData); err != nil {
 		return repository.Order{}, err
 	}
 
