@@ -11,8 +11,8 @@ type IClientRepository struct {
 	mock.Mock
 }
 
-// Add provides a mock function with given fields: ctx, data
-func (_m *IClientRepository) Add(ctx context.Context, data repository.Client) error {
+// CreateClient provides a mock function with given fields: ctx, data
+func (_m *IClientRepository) CreateClient(ctx context.Context, data repository.Client) error {
 	ret := _m.Called(ctx, data)
 
 	var r0 error
@@ -25,8 +25,8 @@ func (_m *IClientRepository) Add(ctx context.Context, data repository.Client) er
 	return r0
 }
 
-// Find provides a mock function with given fields: ctx, clientID
-func (_m *IClientRepository) Find(ctx context.Context, clientID string) (repository.Client, error) {
+// GetClient provides a mock function with given fields: ctx, clientID
+func (_m *IClientRepository) GetClient(ctx context.Context, clientID string) (repository.Client, error) {
 	ret := _m.Called(ctx, clientID)
 
 	var r0 repository.Client

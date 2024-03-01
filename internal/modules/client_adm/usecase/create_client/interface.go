@@ -1,4 +1,4 @@
-package addclient
+package createclient
 
 import (
 	"context"
@@ -6,6 +6,6 @@ import (
 	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
 )
 
-type IAddClientUseCase interface {
+type ICreateClientUseCase interface {
 	Execute(ctx context.Context, data repository.Client) (repository.Client, error)
 }

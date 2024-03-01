@@ -45,8 +45,8 @@ generate-mock:
 
 	# client_adm
 	mockery --dir=internal/modules/client_adm/repository --name=IClientRepository --output=internal/modules/client_adm/mocks/repomocks  --outpkg=repomocks
-	mockery --dir=internal/modules/client_adm/usecase/add_client --name=IAddClientUseCase --output=internal/modules/client_adm/mocks/usecasemocks  --outpkg=usecasemocks
-	mockery --dir=internal/modules/client_adm/usecase/find_client --name=IFindClientUseCase --output=internal/modules/client_adm/mocks/usecasemocks  --outpkg=usecasemocks
+	mockery --dir=internal/modules/client_adm/usecase/create_client --name=ICreateClientUseCase --output=internal/modules/client_adm/mocks/usecasemocks  --outpkg=usecasemocks
+	mockery --dir=internal/modules/client_adm/usecase/get_client --name=IGetClientUseCase --output=internal/modules/client_adm/mocks/usecasemocks  --outpkg=usecasemocks
 
 	# payment
 	mockery --dir=internal/modules/payment/repository --name=ITransactionRepository --output=internal/modules/payment/mocks/repomocks  --outpkg=repomocks

@@ -4,23 +4,23 @@ import (
 	"context"
 
 	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
-	addclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/add_client"
-	findclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/find_client"
+	createclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/create_client"
+	getclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/get_client"
 )
 
 type ClientAdmFacade struct {
-	addUseCase  addclient.IAddClientUseCase
-	findUseCase findclient.IFindClientUseCase
+	createUseCase createclient.ICreateClientUseCase
+	getUseCase    getclient.IGetClientUseCase
 }
 
-func NewClientAdmFacade(findAllUseCase addclient.IAddClientUseCase, findUseCase findclient.IFindClientUseCase) ClientAdmFacade {
+func NewClientAdmFacade(findAllUseCase createclient.ICreateClientUseCase, findUseCase getclient.IGetClientUseCase) ClientAdmFacade {
 	return ClientAdmFacade{findAllUseCase, findUseCase}
 }
 
-func (facade ClientAdmFacade) Add(ctx context.Context, data repository.Client) (repository.Client, error) {
-	return facade.addUseCase.Execute(ctx, data)
+func (facade ClientAdmFacade) CreateClient(ctx context.Context, data repository.Client) (repository.Client, error) {
+	return facade.createUseCase.Execute(ctx, data)
 }
 
-func (facade ClientAdmFacade) Find(ctx context.Context, clientID string) (repository.Client, error) {
-	return facade.findUseCase.Execute(ctx, clientID)
+func (facade ClientAdmFacade) GetClient(ctx context.Context, clientID string) (repository.Client, error) {
+	return facade.getUseCase.Execute(ctx, clientID)
 }

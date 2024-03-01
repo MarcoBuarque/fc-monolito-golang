@@ -1,4 +1,4 @@
-package findclient
+package getclient
 
 import (
 	"context"
@@ -6,6 +6,6 @@ import (
 	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
 )
 
-type IFindClientUseCase interface {
+type IGetClientUseCase interface {
 	Execute(ctx context.Context, clientID string) (repository.Client, error)
 }

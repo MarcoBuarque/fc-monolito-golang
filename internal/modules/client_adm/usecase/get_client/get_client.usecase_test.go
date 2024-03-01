@@ -1,4 +1,4 @@
-package findclient
+package getclient
 
 import (
 	"context"
@@ -13,19 +13,19 @@ import (
 )
 
 var (
-	useCase  FindClientUseCase
+	useCase  GetClientUseCase
 	repoMock = &repomocks.IClientRepository{}
 )
 
 func TestMain(m *testing.M) {
-	useCase = FindClientUseCase{productRepository: repoMock}
+	useCase = GetClientUseCase{productRepository: repoMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
 func TestNewFindProductUseCase(t *testing.T) {
-	response := NewFindClientUseCase(repoMock)
+	response := NewGetClientUseCase(repoMock)
 
 	assert.Equal(t, useCase, response)
 }

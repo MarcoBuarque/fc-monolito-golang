@@ -37,7 +37,7 @@ func TestNewTransactionRepository(t *testing.T) {
 	assert.Equal(repo, response)
 }
 
-func TestTransactionRepository_Add(t *testing.T) {
+func TestTransactionRepository_CreateClient(t *testing.T) {
 	assert := assert.New(t)
 
 	query := `INSERT INTO "transactions" ("id","order_id","amount","status","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7)`

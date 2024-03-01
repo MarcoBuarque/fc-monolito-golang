@@ -1,4 +1,4 @@
-package addclient
+package createclient
 
 import (
 	"context"
@@ -9,15 +9,15 @@ import (
 )
 
 // Controller
-type AddClientUseCase struct {
+type CreateClientUseCase struct {
 	productRepository repository.IClientRepository
 }
 
-func NewAddClientUseCase(repository repository.IClientRepository) AddClientUseCase {
-	return AddClientUseCase{productRepository: repository}
+func NewCreateClientUseCase(repository repository.IClientRepository) CreateClientUseCase {
+	return CreateClientUseCase{productRepository: repository}
 }
 
-func (controller AddClientUseCase) Execute(ctx context.Context, data repository.Client) (repository.Client, error) {
+func (controller CreateClientUseCase) Execute(ctx context.Context, data repository.Client) (repository.Client, error) {
 	document, err := valueobject.NewDocument(data.DocumentNumber, data.DocumentType)
 	if err != nil {
 		// TODO: add log
@@ -38,7 +38,7 @@ func (controller AddClientUseCase) Execute(ctx context.Context, data repository.
 
 	parsedData := repository.Convert(entity)
 
-	if err := controller.productRepository.Add(ctx, parsedData); err != nil {
+	if err := controller.productRepository.CreateClient(ctx, parsedData); err != nil {
 		// TODO: add log
 		return repository.Client{}, err
 	}

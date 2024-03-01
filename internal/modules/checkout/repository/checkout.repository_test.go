@@ -36,7 +36,7 @@ func TestNewCheckoutRepository(t *testing.T) {
 	assert.Equal(repo, response)
 }
 
-func TestCheckoutRepository_AddOrder(t *testing.T) {
+func TestCheckoutRepository_CreateClientOrder(t *testing.T) {
 	assert := assert.New(t)
 
 	order := Order{
@@ -107,7 +107,7 @@ func TestCheckoutRepository_AddOrder(t *testing.T) {
 	}
 }
 
-func TestCheckoutRepository_FindOrder(t *testing.T) {
+func TestCheckoutRepository_GetClientOrder(t *testing.T) {
 	type fields struct {
 		db *gorm.DB
 	}

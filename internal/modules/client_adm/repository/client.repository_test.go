@@ -38,7 +38,7 @@ func TestNewClientRepository(t *testing.T) {
 	assert.Equal(repo, response)
 }
 
-func TestClientRepository_Add(t *testing.T) {
+func TestClientRepository_CreateClient(t *testing.T) {
 	assert := assert.New(t)
 
 	query := `INSERT INTO "clients" ("id","name","email","document_type","document_number","street","number","complement","city","state","zip_code","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)`
@@ -83,7 +83,7 @@ func TestClientRepository_Add(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			err := repo.Add(tt.args.ctx, tt.args.data)
+			err := repo.CreateClient(tt.args.ctx, tt.args.data)
 
 			assert.Equal(tt.expect, err)
 			assert.Nil(mockQueue.ExpectationsWereMet())
@@ -91,7 +91,7 @@ func TestClientRepository_Add(t *testing.T) {
 	}
 }
 
-func TestClientRepository_Find(t *testing.T) {
+func TestClientRepository_GetClient(t *testing.T) {
 	assert := assert.New(t)
 
 	query := `SELECT * FROM "clients" WHERE "clients"."deleted_at" IS NULL AND "clients"."id" = $1 ORDER BY "clients"."id" LIMIT $2`
@@ -150,7 +150,7 @@ func TestClientRepository_Find(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := repo.Find(tt.args.ctx, tt.args.ClientID)
+			response, err := repo.GetClient(tt.args.ctx, tt.args.ClientID)
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.data, response)
 		})

@@ -13,25 +13,25 @@ import (
 )
 
 var (
-	facade          IClientAdmFacade
-	addUseCaseMock  = &usecasemocks.IAddClientUseCase{}
-	findUseCaseMock = &usecasemocks.IFindClientUseCase{}
+	facade                  IClientAdmFacade
+	createClientUseCaseMock = &usecasemocks.IAddClientUseCase{}
+	getClientUseCaseMock    = &usecasemocks.IFindClientUseCase{}
 )
 
 func TestMain(m *testing.M) {
-	facade = ClientAdmFacade{addUseCase: addUseCaseMock, findUseCase: findUseCaseMock}
+	facade = ClientAdmFacade{createUseCase: createClientUseCaseMock, getUseCase: getClientUseCaseMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
 func TestNewClientAdmFacade(t *testing.T) {
-	response := NewClientAdmFacade(addUseCaseMock, findUseCaseMock)
+	response := NewClientAdmFacade(createClientUseCaseMock, getClientUseCaseMock)
 
 	assert.Equal(t, facade, response)
 }
 
-func TestClientAdmFacade_Add(t *testing.T) {
+func TestClientAdmFacade_CreateClient(t *testing.T) {
 	assert := assert.New(t)
 
 	product := repository.Client{
@@ -53,7 +53,7 @@ func TestClientAdmFacade_Add(t *testing.T) {
 		{
 			title: "Should return an error from repository",
 			setupMock: func() {
-				addUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(repository.Client{}, gorm.ErrInvalidData)
+				createClientUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(repository.Client{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
 				data: repository.Client{},
@@ -64,9 +64,9 @@ func TestClientAdmFacade_Add(t *testing.T) {
 			title: "Success",
 			setupMock: func() {
 				// clean mock queue
-				addUseCaseMock.Mock = mock.Mock{}
+				createClientUseCaseMock.Mock = mock.Mock{}
 
-				addUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(product, nil)
+				createClientUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(product, nil)
 			},
 			expect: expect{
 				data: product,
@@ -79,7 +79,7 @@ func TestClientAdmFacade_Add(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := facade.Add(context.TODO(), product)
+			response, err := facade.CreateClient(context.TODO(), product)
 
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.data.ID, response.ID)
@@ -90,7 +90,7 @@ func TestClientAdmFacade_Add(t *testing.T) {
 	}
 }
 
-func TestClientAdmFacade_Find(t *testing.T) {
+func TestClientAdmFacade_GetClient(t *testing.T) {
 	assert := assert.New(t)
 
 	product := repository.Client{
@@ -122,7 +122,7 @@ func TestClientAdmFacade_Find(t *testing.T) {
 				productID: "product",
 			},
 			setupMock: func() {
-				findUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(repository.Client{}, gorm.ErrInvalidData)
+				getClientUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(repository.Client{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
 				data: repository.Client{},
@@ -137,9 +137,9 @@ func TestClientAdmFacade_Find(t *testing.T) {
 			},
 			setupMock: func() {
 				// clean mock queue
-				findUseCaseMock.Mock = mock.Mock{}
+				getClientUseCaseMock.Mock = mock.Mock{}
 
-				findUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(product, nil)
+				getClientUseCaseMock.On("Execute", mock.Anything, mock.Anything).Return(product, nil)
 			},
 			expect: expect{
 				data: product,
@@ -152,7 +152,7 @@ func TestClientAdmFacade_Find(t *testing.T) {
 		t.Run(tt.title, func(t *testing.T) {
 			tt.setupMock()
 
-			response, err := facade.Find(tt.args.ctx, tt.args.productID)
+			response, err := facade.GetClient(tt.args.ctx, tt.args.productID)
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.data.ID, response.ID)
 			assert.Equal(tt.expect.data.Name, response.Name)

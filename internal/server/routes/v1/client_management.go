@@ -32,7 +32,7 @@ func CreateClient(c *gin.Context) {
 		pkg.PanicException(constant.InvalidRequest)
 	}
 
-	response, err := clientAdmFactory.NewClientAdmFacadeFactory().Add(c.Request.Context(), request)
+	response, err := clientAdmFactory.NewClientAdmFacadeFactory().CreateClient(c.Request.Context(), request)
 	if err != nil {
 		pkg.GormErrorHandler("Routes V1: CreateClient", err)
 	}
@@ -61,7 +61,7 @@ func GetClient(c *gin.Context) {
 
 	clientID := c.Param("clientID")
 
-	response, err := clientAdmFactory.NewClientAdmFacadeFactory().Find(c.Request.Context(), clientID)
+	response, err := clientAdmFactory.NewClientAdmFacadeFactory().GetClient(c.Request.Context(), clientID)
 	if err != nil {
 		pkg.GormErrorHandler("Routes V1: GetClient", err)
 	}

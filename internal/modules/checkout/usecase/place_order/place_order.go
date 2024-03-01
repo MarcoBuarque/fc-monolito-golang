@@ -30,7 +30,7 @@ func NewPlaceOrderUseCase(
 }
 
 func (controller PlaceOrderUseCase) Execute(ctx context.Context, clientID string, products []ProductInfo) (repository.Order, error) {
-	client, err := controller.clientFacade.Find(ctx, clientID)
+	client, err := controller.clientFacade.GetClient(ctx, clientID)
 	if err != nil {
 		// TODO: ADD LOGS
 		return repository.Order{}, err
