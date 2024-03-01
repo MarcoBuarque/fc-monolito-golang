@@ -24,9 +24,17 @@ run-test:
 	go test ./... -coverprofile=c.out
 	go tool cover -html="c.out"
 
-deploy-docker:
-	docker build -t go-docker-image .
-	docker compose up	
+run:
+	docker-compose -f docker-compose.local.yml up	
+
+run-debug:
+	docker-compose -f docker-compose.debug.yml up	
+
+build:	
+	docker build . -t go-docker-image --file Dockerfile.local
+
+build-debug:
+	docker build . --tag go-docker-image-debug --file Dockerfile.debug
 
 generate-swagger:
 	swag init -g  ./cmd/api/main.go -o cmd/api/swagger --parseDependency --parseInternal 
