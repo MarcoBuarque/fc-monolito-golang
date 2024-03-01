@@ -4,16 +4,41 @@ services:
   db:
     image: postgres
     restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data  
     environment:
       POSTGRES_DB: fc-monolito
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
-    ports:
-      - "5432:5432"
+    networks:
+      - go-docker-net  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5  
+
+  migrate:
+    image: migrate/migrate
     networks:
       - go-docker-net  
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./migrations:/migrations  # Atualizado para o diretório correto
+    entrypoint:
+      [
+        "migrate",
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://postgres:123456@db:5432/fc-monolito?sslmode=disable",
+      ]
+    command: ["up"]
+    depends_on:
+      - db
+    restart: on-failure
+
   api:
       image: go-docker-image:latest #Our go-docker image here
       container_name: 'go-docker_api'

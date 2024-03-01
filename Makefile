@@ -1,5 +1,24 @@
-migrate:
-	migrate -database "postgres://postgres:123456@0.0.0.0:5432/fc-monolito?sslmode=disable" -path ./migrations up
+#===================#
+#== Env Variables ==#
+#===================#
+DOCKER_COMPOSE_FILE ?= docker-compose.yml
+
+
+#========================#
+#== DATABASE MIGRATION ==#
+#========================#
+
+# migrate-up: ## Run migrations UP
+migrate-up:
+	docker-compose -f ${DOCKER_COMPOSE_FILE} --profile tools run --rm migrate up
+
+# migrate-down: ## Rollback migrations against non test DB
+migrate-down:
+	docker-compose -f ${DOCKER_COMPOSE_FILE} --profile tools run --rm migrate down 1
+
+# migrate-create: ## Create a DB migration files e.g `make migrate-create name=migration-name`
+migrate-create:
+	docker-compose -f ${DOCKER_COMPOSE_FILE} --profile tools run --rm migrate create -ext sql -dir /migrations $(name)
 
 run-test:
 	go test ./... -coverprofile=c.out
