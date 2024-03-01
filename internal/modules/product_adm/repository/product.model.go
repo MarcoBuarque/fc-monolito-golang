@@ -3,7 +3,7 @@ package repository
 import (
 	"time"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/domain"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/domain"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 )

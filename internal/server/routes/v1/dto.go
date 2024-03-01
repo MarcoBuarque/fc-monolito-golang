@@ -1,7 +1,7 @@
 package v1
 
 import (
-	placeorder "github.com/MarcoBuarque/monolito/internal/modules/checkout/usecase/place_order"
+	placeorder "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/checkout/usecase/place_order"
 )
 
 type UpdateSalesPriceRequest struct {

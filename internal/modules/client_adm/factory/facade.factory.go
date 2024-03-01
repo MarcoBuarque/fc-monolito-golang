@@ -3,11 +3,11 @@ package factory
 import (
 	"sync"
 
-	"github.com/MarcoBuarque/monolito/config"
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/facade"
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
-	createclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/create_client"
-	getclient "github.com/MarcoBuarque/monolito/internal/modules/client_adm/usecase/get_client"
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/facade"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/repository"
+	createclient "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/usecase/create_client"
+	getclient "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/usecase/get_client"
 )
 
 var (

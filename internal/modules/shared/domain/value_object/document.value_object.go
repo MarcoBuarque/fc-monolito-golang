@@ -3,7 +3,7 @@ package valueobject
 import (
 	"fmt"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/types"
 )
 
 type Document struct {

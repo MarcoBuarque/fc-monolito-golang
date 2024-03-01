@@ -3,7 +3,7 @@ package addproduct
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
 )
 
 type ICreateProductUseCase interface {

@@ -3,9 +3,9 @@ package createclient
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/domain"
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
-	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/domain"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/repository"
+	valueobject "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/domain/value_object"
 )
 
 // Controller

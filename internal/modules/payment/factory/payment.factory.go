@@ -1,10 +1,10 @@
 package factory
 
 import (
-	"github.com/MarcoBuarque/monolito/config"
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/facade"
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/repository"
-	processpayment "github.com/MarcoBuarque/monolito/internal/modules/payment/usecase/process_payment"
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/facade"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/repository"
+	processpayment "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/usecase/process_payment"
 )
 
 type PaymentFacadeFactory struct {

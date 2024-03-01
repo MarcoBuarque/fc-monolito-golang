@@ -3,7 +3,7 @@ package placeorder
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/checkout/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/checkout/repository"
 )
 
 type ProductInfo struct {

@@ -3,10 +3,10 @@ package facade
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
-	checkstock "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/check_stock"
-	addproduct "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/create_product"
-	updatesalesprice "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/update_sales_price"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
+	checkstock "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/check_stock"
+	addproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/create_product"
+	updatesalesprice "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/update_sales_price"
 )
 
 type ProductAdmFacade struct {

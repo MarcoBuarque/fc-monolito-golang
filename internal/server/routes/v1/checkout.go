@@ -3,14 +3,14 @@ package v1
 import (
 	"net/http"
 
-	"github.com/MarcoBuarque/monolito/config"
-	"github.com/MarcoBuarque/monolito/constant"
-	"github.com/MarcoBuarque/monolito/internal/modules/checkout/repository"
-	placeorder "github.com/MarcoBuarque/monolito/internal/modules/checkout/usecase/place_order"
-	clientAdmFactory "github.com/MarcoBuarque/monolito/internal/modules/client_adm/factory"
-	productAdmFactory "github.com/MarcoBuarque/monolito/internal/modules/product_adm/factory"
-	productCatalogFactory "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/factory"
-	"github.com/MarcoBuarque/monolito/pkg"
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
+	"github.com/MarcoBuarque/fc-monolito-golang/constant"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/checkout/repository"
+	placeorder "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/checkout/usecase/place_order"
+	clientAdmFactory "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/factory"
+	productAdmFactory "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/factory"
+	productCatalogFactory "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/factory"
+	"github.com/MarcoBuarque/fc-monolito-golang/pkg"
 	"github.com/gin-gonic/gin"
 )
 

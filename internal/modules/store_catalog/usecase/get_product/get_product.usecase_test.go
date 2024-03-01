@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/mocks/repomocks"
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/mocks/repomocks"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/repository"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

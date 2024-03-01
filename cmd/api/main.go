@@ -12,8 +12,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/MarcoBuarque/monolito/config"
-	"github.com/MarcoBuarque/monolito/internal/server"
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/server"
 	"github.com/joho/godotenv"
 )
 

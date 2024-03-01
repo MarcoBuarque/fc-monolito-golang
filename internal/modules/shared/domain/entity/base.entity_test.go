@@ -3,7 +3,7 @@ package entity
 import (
 	"testing"
 
-	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
+	valueobject "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/domain/value_object"
 	"github.com/stretchr/testify/assert"
 )
 

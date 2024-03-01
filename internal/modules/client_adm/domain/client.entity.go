@@ -3,8 +3,8 @@ package domain
 import (
 	"fmt"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/shared/domain/entity"
-	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/domain/entity"
+	valueobject "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/domain/value_object"
 )
 
 type ClientEntity struct {

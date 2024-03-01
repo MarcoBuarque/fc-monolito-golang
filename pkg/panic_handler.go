@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/MarcoBuarque/monolito/constant"
+	"github.com/MarcoBuarque/fc-monolito-golang/constant"
 	"github.com/gin-gonic/gin"
 )
 

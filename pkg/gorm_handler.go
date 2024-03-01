@@ -3,7 +3,7 @@ package pkg
 import (
 	"strings"
 
-	"github.com/MarcoBuarque/monolito/constant"
+	"github.com/MarcoBuarque/fc-monolito-golang/constant"
 	log "github.com/sirupsen/logrus"
 )
 

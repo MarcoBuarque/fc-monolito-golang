@@ -3,11 +3,11 @@ package factory
 import (
 	"sync"
 
-	"github.com/MarcoBuarque/monolito/config"
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/facade"
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
-	getproduct "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/usecase/get_product"
-	listproducts "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/usecase/list_products"
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/facade"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/repository"
+	getproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/usecase/get_product"
+	listproducts "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/usecase/list_products"
 )
 
 var (

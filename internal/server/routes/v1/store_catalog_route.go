@@ -3,11 +3,11 @@ package v1
 import (
 	"net/http"
 
-	"github.com/MarcoBuarque/monolito/constant"
+	"github.com/MarcoBuarque/fc-monolito-golang/constant"
 
-	productCatalogFactory "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/factory"
-	repoProductCatalog "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
-	"github.com/MarcoBuarque/monolito/pkg"
+	productCatalogFactory "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/factory"
+	repoProductCatalog "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/pkg"
 	"github.com/gin-gonic/gin"
 )
 

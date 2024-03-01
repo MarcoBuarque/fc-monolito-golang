@@ -3,7 +3,7 @@ package processpayment
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/repository"
 	"github.com/shopspring/decimal"
 )
 

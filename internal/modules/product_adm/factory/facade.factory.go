@@ -3,12 +3,12 @@ package factory
 import (
 	"sync"
 
-	"github.com/MarcoBuarque/monolito/config"
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/facade"
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
-	checkstock "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/check_stock"
-	addproduct "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/create_product"
-	updatesalesprice "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/update_sales_price"
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/facade"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
+	checkstock "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/check_stock"
+	addproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/create_product"
+	updatesalesprice "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/update_sales_price"
 )
 
 var (

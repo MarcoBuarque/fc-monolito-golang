@@ -3,10 +3,10 @@ package v1
 import (
 	"net/http"
 
-	"github.com/MarcoBuarque/monolito/constant"
-	productAdmFactory "github.com/MarcoBuarque/monolito/internal/modules/product_adm/factory"
-	repoProductADM "github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
-	"github.com/MarcoBuarque/monolito/pkg"
+	"github.com/MarcoBuarque/fc-monolito-golang/constant"
+	productAdmFactory "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/factory"
+	repoProductADM "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/pkg"
 	"github.com/gin-gonic/gin"
 )
 

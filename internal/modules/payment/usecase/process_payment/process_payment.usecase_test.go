@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/mocks/repomocks"
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/repository"
-	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/mocks/repomocks"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/types"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

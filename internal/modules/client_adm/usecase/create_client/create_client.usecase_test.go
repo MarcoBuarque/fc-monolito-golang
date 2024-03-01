@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/mocks/repomocks"
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
-	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/mocks/repomocks"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"gorm.io/gorm"

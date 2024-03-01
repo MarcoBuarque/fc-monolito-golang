@@ -3,8 +3,8 @@ package repository
 import (
 	"time"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/checkout/domain"
-	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/checkout/domain"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/types"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 )

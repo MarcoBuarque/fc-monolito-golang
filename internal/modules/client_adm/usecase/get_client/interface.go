@@ -3,7 +3,7 @@ package getclient
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/repository"
 )
 
 type IGetClientUseCase interface {

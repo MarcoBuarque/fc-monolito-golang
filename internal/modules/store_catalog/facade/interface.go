@@ -3,7 +3,7 @@ package facade
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/repository"
 )
 
 type IStoreCatalogFacade interface {

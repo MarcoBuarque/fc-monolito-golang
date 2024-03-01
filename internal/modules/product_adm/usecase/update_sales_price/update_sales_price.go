@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
 	"github.com/shopspring/decimal"
 )
 

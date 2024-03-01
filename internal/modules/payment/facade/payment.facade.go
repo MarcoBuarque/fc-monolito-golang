@@ -3,8 +3,8 @@ package facade
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/payment/repository"
-	processpayment "github.com/MarcoBuarque/monolito/internal/modules/payment/usecase/process_payment"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/repository"
+	processpayment "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/payment/usecase/process_payment"
 	"github.com/shopspring/decimal"
 )
 

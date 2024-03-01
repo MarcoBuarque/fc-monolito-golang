@@ -3,7 +3,7 @@ package facade
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
 )
 
 type IProductAdmFacade interface {

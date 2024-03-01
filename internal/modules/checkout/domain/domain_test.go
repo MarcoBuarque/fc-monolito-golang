@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
-	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
+	valueobject "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/domain/value_object"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/types"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 )

@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/mocks/repomocks"
-	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/mocks/repomocks"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"gorm.io/gorm"

@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/http"
 
-	docs "github.com/MarcoBuarque/monolito/cmd/api/swagger"
+	docs "github.com/MarcoBuarque/fc-monolito-golang/cmd/api/swagger"
 
-	v1 "github.com/MarcoBuarque/monolito/internal/server/routes/v1"
-	"github.com/MarcoBuarque/monolito/pkg"
+	v1 "github.com/MarcoBuarque/fc-monolito-golang/internal/server/routes/v1"
+	"github.com/MarcoBuarque/fc-monolito-golang/pkg"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"

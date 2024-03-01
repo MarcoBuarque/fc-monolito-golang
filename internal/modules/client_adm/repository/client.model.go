@@ -3,8 +3,8 @@ package repository
 import (
 	"time"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/client_adm/domain"
-	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/domain"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/types"
 	"gorm.io/gorm"
 )
 

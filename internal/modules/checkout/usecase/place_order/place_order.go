@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	checkoutDomain "github.com/MarcoBuarque/monolito/internal/modules/checkout/domain"
-	"github.com/MarcoBuarque/monolito/internal/modules/checkout/repository"
-	clientFacade "github.com/MarcoBuarque/monolito/internal/modules/client_adm/facade"
-	productFacade "github.com/MarcoBuarque/monolito/internal/modules/product_adm/facade"
-	valueobject "github.com/MarcoBuarque/monolito/internal/modules/shared/domain/value_object"
-	catalogFacade "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/facade"
+	checkoutDomain "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/checkout/domain"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/checkout/repository"
+	clientFacade "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/client_adm/facade"
+	productFacade "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/facade"
+	valueobject "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/shared/domain/value_object"
+	catalogFacade "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/facade"
 )
 
 type PlaceOrderUseCase struct {

@@ -3,9 +3,9 @@ package facade
 import (
 	"context"
 
-	"github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
-	getproduct "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/usecase/get_product"
-	listproducts "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/usecase/list_products"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/repository"
+	getproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/usecase/get_product"
+	listproducts "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/usecase/list_products"
 )
 
 type StoreCatalogFacade struct {

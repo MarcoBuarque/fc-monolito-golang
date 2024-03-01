@@ -1,6 +1,6 @@
 package pkg
 
-import "github.com/MarcoBuarque/monolito/constant"
+import "github.com/MarcoBuarque/fc-monolito-golang/constant"
 
 type ApiResponse[T any] struct {
 	ResponseKey     string `json:"response_key"`

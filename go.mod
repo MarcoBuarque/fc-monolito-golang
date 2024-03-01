@@ -1,4 +1,4 @@
-module github.com/MarcoBuarque/monolito
+module github.com/MarcoBuarque/fc-monolito-golang
 
 go 1.21.6
 
