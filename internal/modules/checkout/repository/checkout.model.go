@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/MarcoBuarque/monolito/internal/modules/checkout/domain"
+	"github.com/MarcoBuarque/monolito/internal/modules/shared/types"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 )
@@ -23,10 +24,11 @@ type Client struct {
 }
 
 type Order struct {
-	ID string `gorm:"primarykey"`
-	// ClientID string
+	ID       string         `gorm:"primarykey"`
 	Client   Client         `gorm:"foreignKey:ID"`
 	Products []OrderProduct `gorm:"many2many:order_products;"`
+	Status   types.Status
+	Total    decimal.Decimal
 
 	CreatedAt time.Time      `json:"-"`
 	UpdatedAt time.Time      `json:"-"`
@@ -79,8 +81,39 @@ func Convert(data domain.OrderEntity) Order {
 		ID:       data.ID().ToString(),
 		Client:   ConvertClient(data.Client()),
 		Products: products,
+		Status:   data.Status(),
+		Total:    data.Total(),
 
 		CreatedAt: data.CreatedAt(),
 		UpdatedAt: data.UpdatedAt(),
 	}
+}
+
+type OrderCreate struct {
+	ID       string `gorm:"primarykey"`
+	ClientID string
+
+	Status types.Status
+	Total  decimal.Decimal
+
+	CreatedAt time.Time      `json:"-"`
+	UpdatedAt time.Time      `json:"-"`
+	DeletedAt gorm.DeletedAt `json:"-"`
+}
+
+func (OrderCreate) TableName() string {
+	return "orders"
+}
+
+func (data Order) convertToCreate() (OrderCreate, []OrderProduct) {
+
+	return OrderCreate{
+		ID:       data.ID,
+		ClientID: data.Client.ID,
+		Status:   data.Status,
+		Total:    data.Total,
+
+		CreatedAt: data.CreatedAt,
+		UpdatedAt: data.UpdatedAt,
+	}, data.Products
 }

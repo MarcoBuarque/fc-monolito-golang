@@ -1,5 +1,58 @@
 basePath: /api/v1
 definitions:
+  github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client:
+    properties:
+      city:
+        type: string
+      complement:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      number:
+        type: string
+      state:
+        type: string
+      street:
+        description: Address
+        type: string
+      zipCode:
+        type: string
+    type: object
+  github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order:
+    properties:
+      client:
+        allOf:
+        - $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client'
+        description: ClientID string
+      id:
+        type: string
+      products:
+        items:
+          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct'
+        type: array
+    type: object
+  github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct:
+    properties:
+      orderID:
+        type: string
+      price:
+        type: number
+      productID:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo:
+    properties:
+      productID:
+        type: string
+      quantity:
+        type: integer
+    type: object
   github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client:
     properties:
       city:
@@ -93,6 +146,15 @@ definitions:
       response_message:
         type: string
     type: object
+  github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order:
+    properties:
+      data:
+        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order'
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
   github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client:
     properties:
       data:
@@ -129,6 +191,17 @@ definitions:
       response_message:
         type: string
     type: object
+  internal_server_routes_v1.CheckoutRequest:
+    properties:
+      clientID:
+        type: string
+      products:
+        items:
+          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo'
+        type: array
+    required:
+    - clientID
+    type: object
   internal_server_routes_v1.UpdateSalesPriceRequest:
     properties:
       price:
@@ -149,6 +222,37 @@ info:
   title: fc-monolito APIs
   version: "1.0"
 paths:
+  /checkout:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows you to create a new order by providing its
+        details in the request body.
+      parameters:
+      - description: Checkout data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/internal_server_routes_v1.CheckoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+      summary: Create a new order.
+      tags:
+      - checkout
   /client-management:
     post:
       consumes:

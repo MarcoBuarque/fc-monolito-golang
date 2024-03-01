@@ -23,5 +23,10 @@ func SetupRoutes(router *gin.Engine) {
 			// clientManagement.GET("", )
 			clientManagement.GET("/:clientID", GetClient)
 		}
+
+		checkout := v1.Group("/checkout")
+		{
+			checkout.POST("", Checkout)
+		}
 	}
 }

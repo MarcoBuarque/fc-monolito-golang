@@ -16,9 +16,23 @@ func NewCheckoutRepository(db *gorm.DB) CheckoutRepository {
 }
 
 func (repo CheckoutRepository) AddOrder(ctx context.Context, data Order) error {
-	if result := repo.db.WithContext(ctx).Create(&data); result.Error != nil {
+	order, products := data.convertToCreate()
+
+	tx := repo.db.WithContext(ctx).Begin()
+	defer tx.Rollback()
+
+	if result := tx.Create(order); result.Error != nil {
 		// TODO: add log
 		return result.Error
+	}
+
+	if result := tx.Create(products); result.Error != nil {
+		// TODO: add log
+		return result.Error
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		return err
 	}
 
 	return nil

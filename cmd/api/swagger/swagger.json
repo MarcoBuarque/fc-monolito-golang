@@ -18,6 +18,52 @@
     "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
+        "/checkout": {
+            "post": {
+                "description": "This endpoint allows you to create a new order by providing its details in the request body.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "checkout"
+                ],
+                "summary": "Create a new order.",
+                "parameters": [
+                    {
+                        "description": "Checkout data",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_server_routes_v1.CheckoutRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    }
+                }
+            }
+        },
         "/client-management": {
             "post": {
                 "description": "This endpoint allows you to create a new client by providing its details in the request body.",
@@ -288,6 +334,89 @@
         }
     },
     "definitions": {
+        "github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string"
+                },
+                "complement": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "street": {
+                    "description": "Address",
+                    "type": "string"
+                },
+                "zipCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order": {
+            "type": "object",
+            "properties": {
+                "client": {
+                    "description": "ClientID string",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client"
+                        }
+                    ]
+                },
+                "id": {
+                    "type": "string"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct"
+                    }
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct": {
+            "type": "object",
+            "properties": {
+                "orderID": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "productID": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo": {
+            "type": "object",
+            "properties": {
+                "productID": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client": {
             "type": "object",
             "required": [
@@ -422,6 +551,20 @@
                 }
             }
         },
+        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order"
+                },
+                "response_key": {
+                    "type": "string"
+                },
+                "response_message": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client": {
             "type": "object",
             "properties": {
@@ -475,6 +618,23 @@
                 },
                 "response_message": {
                     "type": "string"
+                }
+            }
+        },
+        "internal_server_routes_v1.CheckoutRequest": {
+            "type": "object",
+            "required": [
+                "clientID"
+            ],
+            "properties": {
+                "clientID": {
+                    "type": "string"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo"
+                    }
                 }
             }
         },
