@@ -1,5 +1,33 @@
 basePath: /api/v1
 definitions:
+  github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client:
+    properties:
+      city:
+        type: string
+      complement:
+        type: string
+      documentNumber:
+        type: string
+      documentType:
+        allOf:
+        - $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_shared_types.DocumentType'
+        description: Document
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      number:
+        type: string
+      state:
+        type: string
+      street:
+        description: Address
+        type: string
+      zipCode:
+        type: string
+    type: object
   github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product:
     properties:
       description:
@@ -15,6 +43,16 @@ definitions:
       stock:
         type: integer
     type: object
+  github_com_MarcoBuarque_monolito_internal_modules_shared_types.DocumentType:
+    enum:
+    - RG
+    - CPF
+    - CNPJ
+    type: string
+    x-enum-varnames:
+    - RG
+    - CPF
+    - CNPJ
   github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog:
     properties:
       description:
@@ -32,6 +70,15 @@ definitions:
         items:
           $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog'
         type: array
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client:
+    properties:
+      data:
+        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client'
       response_key:
         type: string
       response_message:
@@ -64,6 +111,11 @@ definitions:
       response_message:
         type: string
     type: object
+  internal_server_routes_v1.UpdateSalesPriceRequest:
+    properties:
+      price:
+        type: number
+    type: object
   pkg.Null:
     type: object
 host: localhost:8080
@@ -77,19 +129,26 @@ info:
   title: fc-monolito APIs
   version: "1.0"
 paths:
-  /products:
-    get:
+  /client-management:
+    post:
       consumes:
       - application/json
-      description: This endpoint returns a list of products with information such
-        as name, price, description, and status.
+      description: This endpoint allows you to create a new client by providing its
+        details in the request body.
+      parameters:
+      - description: Client data
+        in: body
+        name: client
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog'
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client'
         "400":
           description: Bad Request
           schema:
@@ -98,14 +157,45 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
-      summary: Retrieve a list of active products.
+      summary: Create a new cleint.
       tags:
-      - products
+      - clients
+  /client-management/{clientID}:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint retrieves the details of a single cleint based on
+        the provided cleint ID.
+      parameters:
+      - description: cleint ID
+        in: path
+        name: clientID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+      summary: Retrieve a specific cleint by its ID.
+      tags:
+      - clients
+  /product-management:
     post:
       consumes:
       - application/json
-      description: This API allows you to create a new product by providing its details
-        in the request body.
+      description: This endpoint allows you to create a new product by providing its
+        details in the request body.
       parameters:
       - description: Product data
         in: body
@@ -131,12 +221,72 @@ paths:
       summary: Create a new product.
       tags:
       - products
-  /products/{productID}:
+  /product-management/{productID}:
+    patch:
+      consumes:
+      - application/json
+      description: This API allows you to update the sales price of a specific product
+        by providing its ID and the new price in the request body.
+      parameters:
+      - description: Product ID
+        in: path
+        name: productID
+        required: true
+        type: string
+      - description: new price value
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/internal_server_routes_v1.UpdateSalesPriceRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+      summary: Update the sales price of a product.
+      tags:
+      - products
+  /store-catalog/products/:
     get:
       consumes:
       - application/json
-      description: his API retrieves the details of a single product based on the
-        provided product ID.
+      description: This endpoint returns a list of products with information such
+        as name, price, description, and status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+      summary: Retrieve a list of active products.
+      tags:
+      - catalogs
+  /store-catalog/products/{productID}:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint retrieves the details of a single product based on
+        the provided product ID.
       parameters:
       - description: Product ID
         in: path
@@ -160,7 +310,7 @@ paths:
             $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
       summary: Retrieve a specific product by its ID.
       tags:
-      - products
+      - catalogs
 schemes:
 - http
 - https

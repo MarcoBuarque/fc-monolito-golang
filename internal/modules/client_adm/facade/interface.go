@@ -8,5 +8,5 @@ import (
 
 type IClientAdmFacade interface {
 	Add(ctx context.Context, data repository.Client) (repository.Client, error)
-	Find(ctx context.Context, ClientID string) (repository.Client, error)
+	Find(ctx context.Context, clientID string) (repository.Client, error)
 }

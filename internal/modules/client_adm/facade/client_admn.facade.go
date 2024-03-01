@@ -21,6 +21,6 @@ func (facade ClientAdmFacade) Add(ctx context.Context, data repository.Client) (
 	return facade.addUseCase.Execute(ctx, data)
 }
 
-func (facade ClientAdmFacade) Find(ctx context.Context, productID string) (repository.Client, error) {
-	return facade.findUseCase.Execute(ctx, productID)
+func (facade ClientAdmFacade) Find(ctx context.Context, clientID string) (repository.Client, error) {
+	return facade.findUseCase.Execute(ctx, clientID)
 }

@@ -6,9 +6,12 @@ import (
 	"github.com/MarcoBuarque/monolito/constant"
 
 	productCatalogFactory "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/factory"
+	repoProductCatalog "github.com/MarcoBuarque/monolito/internal/modules/store_catalog/repository"
 	"github.com/MarcoBuarque/monolito/pkg"
 	"github.com/gin-gonic/gin"
 )
+
+var _ repoProductCatalog.ProductCatalog
 
 // GetProduct godoc
 //
@@ -25,7 +28,7 @@ import (
 //	@Failure		400			{object}	pkg.ApiResponse[pkg.Null]
 //	@Failure		500			{object}	pkg.ApiResponse[pkg.Null]
 //
-//	@Router			/store/items/{productID} [get]
+//	@Router			/store-catalog/products/{productID} [get]
 func GetProduct(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
@@ -52,7 +55,7 @@ func GetProduct(c *gin.Context) {
 //	@Failure		400	{object}	pkg.ApiResponse[pkg.Null]
 //	@Failure		500	{object}	pkg.ApiResponse[pkg.Null]
 //
-//	@Router			/store/items/ [get]
+//	@Router			/store-catalog/products/ [get]
 func ListProducts(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 

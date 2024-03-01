@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS orders (
     id VARCHAR(255) PRIMARY KEY NOT NULL,
-    client_id INTEGER REFERENCES clients(id),
+    client_id VARCHAR(255) REFERENCES clients(id),
 
     status VARCHAR(10) NOT NULL CHECK(status IN ('pending', 'approved', 'declined')),
     total DECIMAL(10, 2) NOT NULL,

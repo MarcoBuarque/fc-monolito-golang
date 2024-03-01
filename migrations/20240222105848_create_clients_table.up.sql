@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS clients (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
 -- Document
     document_type VARCHAR(10) NOT NULL CHECK(document_type IN ('RG', 'CPF', 'CNPJ')),
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS clients (
     complement VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
     state VARCHAR(255) NOT NULL,
-    zipCode VARCHAR(10) NOT NULL,
+    zip_code VARCHAR(10) NOT NULL,
 
 
     created_at TIMESTAMP NOT NULL,

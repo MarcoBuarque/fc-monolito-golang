@@ -23,7 +23,7 @@ import (
 //	@Failure		400		{object}	pkg.ApiResponse[pkg.Null]
 //	@Failure		500		{object}	pkg.ApiResponse[pkg.Null]
 //
-//	@Router			/product-adm [post]
+//	@Router			/product-management [post]
 func CreateProduct(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
@@ -47,17 +47,15 @@ func CreateProduct(c *gin.Context) {
 //	@Tags			products
 //	@Accept			json
 //	@Produce		json
-//
 //	@Param			productID	path	string					true	"Product ID"
-//
 //	@Param			product		body	UpdateSalesPriceRequest	true	"new price value"
-
+//
 // @Success	200	{object}	pkg.ApiResponse[repoProductADM.Product]
 //
 // @Failure	400	{object}	pkg.ApiResponse[pkg.Null]
 // @Failure	500	{object}	pkg.ApiResponse[pkg.Null]
 //
-// @Router		/product-adm/{productID} [patch]
+// @Router		/product-management/{productID} [patch]
 func UpdateSalesPrice(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
@@ -70,7 +68,7 @@ func UpdateSalesPrice(c *gin.Context) {
 
 	response, err := productAdmFactory.NewProductAdmFacadeFactory().UpdateSalesPrice(c.Request.Context(), productID, request.Price)
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: ListProducts", err)
+		pkg.GormErrorHandler("Routes V1: UpdateSalesPrice", err)
 	}
 
 	// TODO: Review: send all product data back?
