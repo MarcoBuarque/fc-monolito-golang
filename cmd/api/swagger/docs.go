@@ -292,6 +292,18 @@ const docTemplate = `{
     "definitions": {
         "github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client": {
             "type": "object",
+            "required": [
+                "city",
+                "complement",
+                "documentNumber",
+                "documentType",
+                "email",
+                "name",
+                "number",
+                "state",
+                "street",
+                "zipCode"
+            ],
             "properties": {
                 "city": {
                     "type": "string"
@@ -336,6 +348,14 @@ const docTemplate = `{
         },
         "github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product": {
             "type": "object",
+            "required": [
+                "description",
+                "id",
+                "name",
+                "purchase_price",
+                "sales_price",
+                "stock"
+            ],
             "properties": {
                 "description": {
                     "type": "string"
@@ -462,6 +482,9 @@ const docTemplate = `{
         },
         "internal_server_routes_v1.UpdateSalesPriceRequest": {
             "type": "object",
+            "required": [
+                "price"
+            ],
             "properties": {
                 "price": {
                     "type": "number"

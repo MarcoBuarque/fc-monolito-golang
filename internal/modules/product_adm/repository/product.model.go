@@ -9,12 +9,12 @@ import (
 )
 
 type Product struct {
-	ID            string          `gorm:"primarykey" json:"id"`
-	Name          string          `json:"name"`
-	Description   string          `json:"description"`
-	PurchasePrice decimal.Decimal `json:"purchase_price"`
-	SalesPrice    decimal.Decimal `json:"sales_price"`
-	Stock         int32           `json:"stock"`
+	ID            string          `gorm:"primarykey" json:"id" binding:"required"`
+	Name          string          `json:"name" binding:"required"`
+	Description   string          `json:"description" binding:"required"`
+	PurchasePrice decimal.Decimal `json:"purchase_price" binding:"required"`
+	SalesPrice    decimal.Decimal `json:"sales_price" binding:"required"`
+	Stock         int32           `json:"stock" binding:"required"`
 
 	CreatedAt time.Time      `json:"-"`
 	UpdatedAt time.Time      `json:"-"`

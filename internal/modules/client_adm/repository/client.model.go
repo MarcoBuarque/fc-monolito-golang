@@ -10,20 +10,20 @@ import (
 
 type Client struct {
 	ID    string `gorm:"primarykey"`
-	Name  string
-	Email string
+	Name  string `binding:"required"`
+	Email string `binding:"required"`
 
 	// Document
-	DocumentType   types.DocumentType
-	DocumentNumber string
+	DocumentType   types.DocumentType `binding:"required"`
+	DocumentNumber string             `binding:"required"`
 
 	// Address
-	Street     string
-	Number     string
-	Complement string
-	City       string
-	State      string
-	ZipCode    string
+	Street     string `binding:"required"`
+	Number     string `binding:"required"`
+	Complement string `binding:"required"`
+	City       string `binding:"required"`
+	State      string `binding:"required"`
+	ZipCode    string `binding:"required"`
 
 	CreatedAt time.Time      `json:"-"`
 	UpdatedAt time.Time      `json:"-"`

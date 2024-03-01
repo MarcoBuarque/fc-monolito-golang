@@ -27,6 +27,17 @@ definitions:
         type: string
       zipCode:
         type: string
+    required:
+    - city
+    - complement
+    - documentNumber
+    - documentType
+    - email
+    - name
+    - number
+    - state
+    - street
+    - zipCode
     type: object
   github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product:
     properties:
@@ -42,6 +53,13 @@ definitions:
         type: number
       stock:
         type: integer
+    required:
+    - description
+    - id
+    - name
+    - purchase_price
+    - sales_price
+    - stock
     type: object
   github_com_MarcoBuarque_monolito_internal_modules_shared_types.DocumentType:
     enum:
@@ -115,6 +133,8 @@ definitions:
     properties:
       price:
         type: number
+    required:
+    - price
     type: object
   pkg.Null:
     type: object
