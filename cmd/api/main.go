@@ -31,12 +31,8 @@ func init() {
 //	@contact.url	http://www.swagger.io/support
 //	@contact.email	support@swagger.io
 
-// // @securityDefinitions.apiKey JWT
-// // @in header
-// // @name token
-
-// // @license.name Apache 2.0
-// // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
 
 //	@host		localhost:8080
 //	@BasePath	/api/v1

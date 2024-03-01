@@ -15,6 +15,10 @@ const docTemplate = `{
             "url": "http://www.swagger.io/support",
             "email": "support@swagger.io"
         },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -36,7 +40,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Checkout data",
-                        "name": "product",
+                        "name": "order",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -48,19 +52,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository_Order"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     }
                 }
@@ -86,7 +90,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository.Client"
                         }
                     }
                 ],
@@ -94,19 +98,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository_Client"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     }
                 }
@@ -138,19 +142,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository_Client"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     }
                 }
@@ -176,7 +180,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository.Product"
                         }
                     }
                 ],
@@ -184,19 +188,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository_Product"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     }
                 }
@@ -237,19 +241,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository_Product"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     }
                 }
@@ -272,19 +276,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-array_github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     }
                 }
@@ -316,19 +320,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null"
                         }
                     }
                 }
@@ -336,7 +340,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Client": {
             "type": "object",
             "properties": {
                 "city": {
@@ -369,16 +373,11 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Order": {
             "type": "object",
             "properties": {
                 "client": {
-                    "description": "ClientID string",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client"
-                        }
-                    ]
+                    "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Client"
                 },
                 "id": {
                     "type": "string"
@@ -386,12 +385,18 @@ const docTemplate = `{
                 "products": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct"
+                        "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.OrderProduct"
                     }
+                },
+                "status": {
+                    "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.Status"
+                },
+                "total": {
+                    "type": "number"
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.OrderProduct": {
             "type": "object",
             "properties": {
                 "orderID": {
@@ -408,7 +413,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_usecase_place_order.ProductInfo": {
             "type": "object",
             "properties": {
                 "productID": {
@@ -419,7 +424,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository.Client": {
             "type": "object",
             "required": [
                 "city",
@@ -447,7 +452,7 @@ const docTemplate = `{
                     "description": "Document",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_shared_types.DocumentType"
+                            "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.DocumentType"
                         }
                     ]
                 },
@@ -475,7 +480,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository.Product": {
             "type": "object",
             "required": [
                 "description",
@@ -506,7 +511,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_internal_modules_shared_types.DocumentType": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.DocumentType": {
             "type": "string",
             "enum": [
                 "RG",
@@ -519,7 +524,20 @@ const docTemplate = `{
                 "CNPJ"
             ]
         },
-        "github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog": {
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.Status": {
+            "type": "string",
+            "enum": [
+                "pending",
+                "approved",
+                "declined"
+            ],
+            "x-enum-varnames": [
+                "Pending",
+                "Approved",
+                "Declined"
+            ]
+        },
+        "github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository.ProductCatalog": {
             "type": "object",
             "properties": {
                 "description": {
@@ -536,13 +554,13 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog": {
+        "github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-array_github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog": {
             "type": "object",
             "properties": {
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog"
+                        "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository.ProductCatalog"
                     }
                 },
                 "response_key": {
@@ -553,11 +571,11 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order": {
+        "github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository_Order": {
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order"
+                    "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Order"
                 },
                 "response_key": {
                     "type": "string"
@@ -567,11 +585,11 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client": {
+        "github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository_Client": {
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client"
+                    "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository.Client"
                 },
                 "response_key": {
                     "type": "string"
@@ -581,11 +599,11 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product": {
+        "github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository_Product": {
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product"
+                    "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository.Product"
                 },
                 "response_key": {
                     "type": "string"
@@ -595,11 +613,11 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog": {
+        "github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog": {
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog"
+                    "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository.ProductCatalog"
                 },
                 "response_key": {
                     "type": "string"
@@ -609,7 +627,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null": {
+        "github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null": {
             "type": "object",
             "properties": {
                 "data": {
@@ -635,7 +653,7 @@ const docTemplate = `{
                 "products": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo"
+                        "$ref": "#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_usecase_place_order.ProductInfo"
                     }
                 }
             }

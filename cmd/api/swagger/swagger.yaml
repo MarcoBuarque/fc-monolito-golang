@@ -1,6 +1,6 @@
 basePath: /api/v1
 definitions:
-  github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Client:
     properties:
       city:
         type: string
@@ -22,20 +22,22 @@ definitions:
       zipCode:
         type: string
     type: object
-  github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Order:
     properties:
       client:
-        allOf:
-        - $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Client'
-        description: ClientID string
+        $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Client'
       id:
         type: string
       products:
         items:
-          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct'
+          $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.OrderProduct'
         type: array
+      status:
+        $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.Status'
+      total:
+        type: number
     type: object
-  github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.OrderProduct:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.OrderProduct:
     properties:
       orderID:
         type: string
@@ -46,14 +48,14 @@ definitions:
       quantity:
         type: integer
     type: object
-  github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_usecase_place_order.ProductInfo:
     properties:
       productID:
         type: string
       quantity:
         type: integer
     type: object
-  github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository.Client:
     properties:
       city:
         type: string
@@ -63,7 +65,7 @@ definitions:
         type: string
       documentType:
         allOf:
-        - $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_shared_types.DocumentType'
+        - $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.DocumentType'
         description: Document
       email:
         type: string
@@ -92,7 +94,7 @@ definitions:
     - street
     - zipCode
     type: object
-  github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository.Product:
     properties:
       description:
         type: string
@@ -114,7 +116,7 @@ definitions:
     - sales_price
     - stock
     type: object
-  github_com_MarcoBuarque_monolito_internal_modules_shared_types.DocumentType:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.DocumentType:
     enum:
     - RG
     - CPF
@@ -124,7 +126,17 @@ definitions:
     - RG
     - CPF
     - CNPJ
-  github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog:
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_shared_types.Status:
+    enum:
+    - pending
+    - approved
+    - declined
+    type: string
+    x-enum-varnames:
+    - Pending
+    - Approved
+    - Declined
+  github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository.ProductCatalog:
     properties:
       description:
         type: string
@@ -135,54 +147,54 @@ definitions:
       salesPrice:
         type: number
     type: object
-  ? github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog
+  ? github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-array_github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog
   : properties:
       data:
         items:
-          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog'
+          $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository.ProductCatalog'
         type: array
       response_key:
         type: string
       response_message:
         type: string
     type: object
-  github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order:
-    properties:
-      data:
-        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_repository.Order'
-      response_key:
-        type: string
-      response_message:
-        type: string
-    type: object
-  github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client:
-    properties:
-      data:
-        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client'
-      response_key:
-        type: string
-      response_message:
-        type: string
-    type: object
-  ? github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product
+  ? github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository_Order
   : properties:
       data:
-        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product'
+        $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository.Order'
       response_key:
         type: string
       response_message:
         type: string
     type: object
-  ? github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog
+  ? github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository_Client
   : properties:
       data:
-        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog'
+        $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository.Client'
       response_key:
         type: string
       response_message:
         type: string
     type: object
-  github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null:
+  ? github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository_Product
+  : properties:
+      data:
+        $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository.Product'
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  ? github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog
+  : properties:
+      data:
+        $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository.ProductCatalog'
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null:
     properties:
       data:
         $ref: '#/definitions/pkg.Null'
@@ -197,7 +209,7 @@ definitions:
         type: string
       products:
         items:
-          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_checkout_usecase_place_order.ProductInfo'
+          $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_usecase_place_order.ProductInfo'
         type: array
     required:
     - clientID
@@ -218,6 +230,9 @@ info:
     name: API Support
     url: http://www.swagger.io/support
   description: Implementation in golang of FC monolith course.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
   termsOfService: http://swagger.io/terms/
   title: fc-monolito APIs
   version: "1.0"
@@ -231,7 +246,7 @@ paths:
       parameters:
       - description: Checkout data
         in: body
-        name: product
+        name: order
         required: true
         schema:
           $ref: '#/definitions/internal_server_routes_v1.CheckoutRequest'
@@ -241,15 +256,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_checkout_repository_Order'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_checkout_repository_Order'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
       summary: Create a new order.
       tags:
       - checkout
@@ -265,22 +280,22 @@ paths:
         name: client
         required: true
         schema:
-          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository.Client'
+          $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository.Client'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository_Client'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
       summary: Create a new cleint.
       tags:
       - clients
@@ -302,15 +317,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_client_adm_repository_Client'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_client_adm_repository_Client'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
       summary: Retrieve a specific cleint by its ID.
       tags:
       - clients
@@ -326,22 +341,22 @@ paths:
         name: product
         required: true
         schema:
-          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product'
+          $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository.Product'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository_Product'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
       summary: Create a new product.
       tags:
       - products
@@ -369,15 +384,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_product_adm_repository_Product'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
       summary: Update the sales price of a product.
       tags:
       - products
@@ -393,15 +408,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-array_github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
       summary: Retrieve a list of active products.
       tags:
       - catalogs
@@ -423,15 +438,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-github_com_MarcoBuarque_fc-monolito-golang_internal_modules_store_catalog_repository_ProductCatalog'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+            $ref: '#/definitions/github_com_MarcoBuarque_fc-monolito-golang_pkg.ApiResponse-pkg_Null'
       summary: Retrieve a specific product by its ID.
       tags:
       - catalogs
