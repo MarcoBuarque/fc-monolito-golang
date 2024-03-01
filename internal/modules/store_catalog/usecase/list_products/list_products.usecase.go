@@ -15,11 +15,11 @@ func NewListProductsUseCase(repository repository.IProductRepository) ListProduc
 	return ListProductsUseCase{productRepository: repository}
 }
 
-func (controller ListProductsUseCase) Execute(ctx context.Context) ([]repository.Product, error) {
+func (controller ListProductsUseCase) Execute(ctx context.Context) ([]repository.ProductCatalog, error) {
 	response, err := controller.productRepository.ListProducts(ctx)
 	if err != nil {
 		// TODO: add log
-		return []repository.Product{}, err
+		return []repository.ProductCatalog{}, err
 	}
 
 	return response, nil

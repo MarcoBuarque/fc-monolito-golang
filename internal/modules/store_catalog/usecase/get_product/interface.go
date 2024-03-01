@@ -7,5 +7,5 @@ import (
 )
 
 type IGetProductUseCase interface {
-	Execute(ctx context.Context, productID string) (repository.Product, error)
+	Execute(ctx context.Context, productID string) (repository.ProductCatalog, error)
 }

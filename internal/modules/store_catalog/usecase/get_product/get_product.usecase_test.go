@@ -34,7 +34,7 @@ func TestNewGetProductUseCase(t *testing.T) {
 func TestGetProductUseCase_Execute(t *testing.T) {
 	assert := assert.New(t)
 
-	product := repository.Product{
+	product := repository.ProductCatalog{
 		ID:          "xpto_id",
 		Name:        "xpto",
 		Description: "xpto_description",
@@ -46,7 +46,7 @@ func TestGetProductUseCase_Execute(t *testing.T) {
 	}
 
 	type expect struct {
-		data repository.Product
+		data repository.ProductCatalog
 		err  error
 	}
 
@@ -62,10 +62,10 @@ func TestGetProductUseCase_Execute(t *testing.T) {
 				ctx: context.Background(),
 			},
 			setupMock: func() {
-				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.Product{}, gorm.ErrInvalidData)
+				repoMock.On("Find", mock.Anything, mock.Anything).Return(repository.ProductCatalog{}, gorm.ErrInvalidData)
 			},
 			expect: expect{
-				data: repository.Product{},
+				data: repository.ProductCatalog{},
 				err:  gorm.ErrInvalidData,
 			},
 		},

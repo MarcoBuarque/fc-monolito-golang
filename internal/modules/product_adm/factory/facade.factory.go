@@ -8,6 +8,7 @@ import (
 	"github.com/MarcoBuarque/monolito/internal/modules/product_adm/repository"
 	checkstock "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/check_stock"
 	addproduct "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/create_product"
+	updatesalesprice "github.com/MarcoBuarque/monolito/internal/modules/product_adm/usecase/update_sales_price"
 )
 
 var (
@@ -21,6 +22,7 @@ func createSingleton() {
 	singleton = facade.NewProductAdmFacade(
 		addproduct.NewCreateProductUseCase(repo),
 		checkstock.NewCheckStockUseCase(repo),
+		updatesalesprice.NewUpdateSalesPriceUseCase(repo),
 	)
 }
 func NewProductAdmFacadeFactory() facade.IProductAdmFacade {

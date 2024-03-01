@@ -10,19 +10,19 @@ deploy-docker:
 	docker compose up	
 
 generate-swagger:
-	swag init -g ./cmd/api/main.go -o cmd/api/swagger
+	swag init -g  ./cmd/api/main.go -o cmd/api/swagger --parseDependency --parseInternal 
 
 generate-mock:
 	# product adm
 	mockery --dir=internal/modules/product_adm/repository --name=IProductRepository --output=internal/modules/product_adm/mocks/repomocks  --outpkg=repomocks
 	mockery --dir=internal/modules/product_adm/usecase/create_product --name=ICreateProductUseCase --output=internal/modules/product_adm/mocks/usecasemocks  --outpkg=usecasemocks
 	mockery --dir=internal/modules/product_adm/usecase/check_stock --name=ICheckStockUseCase --output=internal/modules/product_adm/mocks/usecasemocks  --outpkg=usecasemocks
+	mockery --dir=internal/modules/product_adm/usecase/update_sales_price --name=IUpdateSalesPriceUseCase --output=internal/modules/product_adm/mocks/usecasemocks  --outpkg=usecasemocks
 
 	# store_catalog
 	mockery --dir=internal/modules/store_catalog/repository --name=IProductRepository --output=internal/modules/store_catalog/mocks/repomocks  --outpkg=repomocks
 	mockery --dir=internal/modules/store_catalog/usecase/list_products --name=IListProductsUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
 	mockery --dir=internal/modules/store_catalog/usecase/get_product --name=IGetProductUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
-	mockery --dir=internal/modules/store_catalog/usecase/update_sales_price --name=IUpdateSalesPriceUseCase --output=internal/modules/store_catalog/mocks/usecasemocks  --outpkg=usecasemocks
 
 	# client_adm
 	mockery --dir=internal/modules/client_adm/repository --name=IClientRepository --output=internal/modules/client_adm/mocks/repomocks  --outpkg=repomocks

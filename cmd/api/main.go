@@ -10,7 +10,7 @@ import (
 	"syscall"
 	"time"
 
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/MarcoBuarque/monolito/config"
 	"github.com/MarcoBuarque/monolito/internal/server"
@@ -22,13 +22,33 @@ func init() {
 	// config.InitLog()
 }
 
+//	@title			fc-monolito APIs
+//	@version		1.0
+//	@description	Implementation in golang of FC monolith course.
+//	@termsOfService	http://swagger.io/terms/
+
+//	@contact.name	API Support
+//	@contact.url	http://www.swagger.io/support
+//	@contact.email	support@swagger.io
+
+// // @securityDefinitions.apiKey JWT
+// // @in header
+// // @name token
+
+// // @license.name Apache 2.0
+// // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+//	@host		localhost:8080
+//	@BasePath	/api/v1
+
+// @schemes	http https
 func main() {
 	response := config.GetDB()
 	fmt.Println("RESPONSE", response)
 
 	// Wait for interrupt signal to gracefully shutdown the server with
 	// a timeout of 5 seconds.
-	done := make(chan os.Signal)
+	done := make(chan os.Signal, 1)
 
 	signal.Notify(done, syscall.SIGINT, syscall.SIGTERM)
 
@@ -36,8 +56,7 @@ func main() {
 	// it won't block the graceful shutdown handling below
 	go func() {
 		if err := server.SetupServer().ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			// log.Errorf("error: %s\n", err)
-			// TODO: ADD LOGS
+			log.Errorf("error: %s\n", err)
 		}
 	}()
 
@@ -55,10 +74,8 @@ func main() {
 	defer cancel()
 
 	if err := server.Shutdown(ctx); err != nil {
-		// logger.Fatal("Error while shutting down Server. Initiating force shutdown...", logger.String("Error", err.Error()))
-		// TODO: ADD LOGS
+		log.Fatal("Error while shutting down Server. Initiating force shutdown...", "Error", err.Error())
 	} else {
-		// logger.Info("Server exiting")
-		// TODO: ADD LOGS
+		log.Info("Server exiting")
 	}
 }

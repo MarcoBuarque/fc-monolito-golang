@@ -25,23 +25,37 @@ func (_m *IProductRepository) CreateProduct(ctx context.Context, data repository
 	return r0
 }
 
-// GetProduct provides a mock function with given fields: ctx, id
-func (_m *IProductRepository) GetProduct(ctx context.Context, id string) (repository.Product, error) {
-	ret := _m.Called(ctx, id)
+// GetProduct provides a mock function with given fields: ctx, productID
+func (_m *IProductRepository) GetProduct(ctx context.Context, productID string) (repository.Product, error) {
+	ret := _m.Called(ctx, productID)
 
 	var r0 repository.Product
 	if rf, ok := ret.Get(0).(func(context.Context, string) repository.Product); ok {
-		r0 = rf(ctx, id)
+		r0 = rf(ctx, productID)
 	} else {
 		r0 = ret.Get(0).(repository.Product)
 	}
 
 	var r1 error
 	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
-		r1 = rf(ctx, id)
+		r1 = rf(ctx, productID)
 	} else {
 		r1 = ret.Error(1)
 	}
 
 	return r0, r1
+}
+
+// UpdateSalesPrice provides a mock function with given fields: ctx, productID, newprice
+func (_m *IProductRepository) UpdateSalesPrice(ctx context.Context, productID string, newprice float32) error {
+	ret := _m.Called(ctx, productID, newprice)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, float32) error); ok {
+		r0 = rf(ctx, productID, newprice)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
 }

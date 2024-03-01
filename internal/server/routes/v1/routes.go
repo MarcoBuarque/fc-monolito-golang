@@ -5,12 +5,16 @@ import "github.com/gin-gonic/gin"
 func SetupRoutes(router *gin.Engine) {
 	v1 := router.Group("api/v1")
 	{
-		products := v1.Group("/products")
+		productADM := v1.Group("/product-adm ")
 		{
-			products.GET("", ListProducts)
-			products.GET("/:productID", GetProduct)
-			products.POST("/", CreateProduct)
-			products.PATCH("/:productID", UpdateSalesPrice)
+			productADM.POST("/", CreateProduct)
+			productADM.PATCH("/:productID", UpdateSalesPrice)
+		}
+
+		productCatalog := v1.Group("/catalog")
+		{
+			productCatalog.GET("", ListProducts)
+			productCatalog.GET("/:productID", GetProduct)
 		}
 	}
 

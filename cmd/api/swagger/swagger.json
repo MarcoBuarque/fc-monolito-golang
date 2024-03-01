@@ -1,7 +1,249 @@
 {
+    "schemes": [
+        "http",
+        "https"
+    ],
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "Implementation in golang of FC monolith course.",
+        "title": "fc-monolito APIs",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "version": "1.0"
     },
-    "paths": {}
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/products": {
+            "get": {
+                "description": "This endpoint returns a list of products with information such as name, price, description, and status.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "Retrieve a list of active products.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "This API allows you to create a new product by providing its details in the request body.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "Create a new product.",
+                "parameters": [
+                    {
+                        "description": "Product data",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{productID}": {
+            "get": {
+                "description": "his API retrieves the details of a single product based on the provided product ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "Retrieve a specific product by its ID.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "productID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "purchase_price": {
+                    "type": "number"
+                },
+                "sales_price": {
+                    "type": "number"
+                },
+                "stock": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "salesPrice": {
+                    "type": "number"
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog"
+                    }
+                },
+                "response_key": {
+                    "type": "string"
+                },
+                "response_message": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product"
+                },
+                "response_key": {
+                    "type": "string"
+                },
+                "response_message": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog"
+                },
+                "response_key": {
+                    "type": "string"
+                },
+                "response_message": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/pkg.Null"
+                },
+                "response_key": {
+                    "type": "string"
+                },
+                "response_message": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg.Null": {
+            "type": "object"
+        }
+    }
 }

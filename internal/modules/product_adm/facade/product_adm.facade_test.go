@@ -14,20 +14,21 @@ import (
 )
 
 var (
-	facade         ProductAdmFacade
-	addProductMock = &usecasemocks.ICreateProductUseCase{}
-	checkStockMock = &usecasemocks.ICheckStockUseCase{}
+	facade                 ProductAdmFacade
+	addProductMock         = &usecasemocks.ICreateProductUseCase{}
+	checkStockMock         = &usecasemocks.ICheckStockUseCase{}
+	updatePriceUseCaseMock = &usecasemocks.IUpdateSalesPriceUseCase{}
 )
 
 func TestMain(m *testing.M) {
-	facade = ProductAdmFacade{addUseCase: addProductMock, checkStockUseCase: checkStockMock}
+	facade = ProductAdmFacade{addUseCase: addProductMock, checkStockUseCase: checkStockMock, updatePriceUseCase: updatePriceUseCaseMock}
 	exitVal := m.Run()
 
 	os.Exit(exitVal)
 }
 
 func TestNewProductAdmFacade(t *testing.T) {
-	response := NewProductAdmFacade(addProductMock, checkStockMock)
+	response := NewProductAdmFacade(addProductMock, checkStockMock, updatePriceUseCaseMock)
 
 	assert.Equal(t, facade, response)
 }
@@ -165,6 +166,69 @@ func TestProductAdmFacade_CheckStock(t *testing.T) {
 			stock, err := facade.CheckStock(tt.args.ctx, tt.args.productID)
 			assert.Equal(tt.expect.err, err)
 			assert.Equal(tt.expect.stock, stock)
+		})
+	}
+}
+
+func TestStoreCatalogFacade_UpdateSalesPrice(t *testing.T) {
+	assert := assert.New(t)
+
+	type args struct {
+		ctx       context.Context
+		productID string
+		price     float32
+	}
+
+	type expect struct {
+		data repository.Product
+		err  error
+	}
+
+	tests := []struct {
+		title     string
+		args      args
+		setupMock func()
+		expect    expect
+	}{
+		{
+			title: "Should return an error from repository",
+			args: args{
+				ctx:       context.Background(),
+				productID: "product",
+				price:     10,
+			},
+			setupMock: func() {
+				updatePriceUseCaseMock.On("Execute", mock.Anything, mock.Anything, mock.Anything).Return(repository.Product{}, gorm.ErrInvalidData)
+			},
+			expect: expect{repository.Product{}, gorm.ErrInvalidData},
+		},
+		{
+			title: "Success",
+			args: args{
+				ctx:       context.Background(),
+				productID: "product",
+				price:     10,
+			},
+			setupMock: func() {
+				// clean mock queue
+				updatePriceUseCaseMock.Mock = mock.Mock{}
+
+				updatePriceUseCaseMock.On("Execute", mock.Anything, mock.Anything, mock.Anything).Return(repository.Product{}, nil)
+			},
+			expect: expect{repository.Product{}, nil},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.title, func(t *testing.T) {
+			tt.setupMock()
+
+			response, err := facade.UpdateSalesPrice(tt.args.ctx, tt.args.productID, tt.args.price)
+			assert.Equal(tt.expect.err, err)
+			assert.Equal(tt.expect.data.ID, response.ID)
+			assert.Equal(tt.expect.data.Name, response.Name)
+			assert.Equal(tt.expect.data.SalesPrice.String(), response.SalesPrice.String())
+
 		})
 	}
 }

@@ -7,7 +7,6 @@ import (
 )
 
 type IStoreCatalogFacade interface {
-	GetProduct(ctx context.Context, productID string) (repository.Product, error)
-	ListProducts(ctx context.Context) ([]repository.Product, error)
-	UpdateSalesPrice(ctx context.Context, id string, price float64) error
+	GetProduct(ctx context.Context, productID string) (repository.ProductCatalog, error)
+	ListProducts(ctx context.Context) ([]repository.ProductCatalog, error)
 }

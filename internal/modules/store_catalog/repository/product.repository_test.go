@@ -45,7 +45,7 @@ func TestProductRepository_ListProducts(t *testing.T) {
 	}
 
 	type expect struct {
-		data []Product
+		data []ProductCatalog
 		err  error
 	}
 
@@ -63,7 +63,7 @@ func TestProductRepository_ListProducts(t *testing.T) {
 			setupMock: func() {
 				mockQueue.ExpectQuery(query).WillReturnError(gorm.ErrRecordNotFound)
 			},
-			expect: expect{data: []Product{}, err: gorm.ErrRecordNotFound},
+			expect: expect{data: []ProductCatalog{}, err: gorm.ErrRecordNotFound},
 		},
 		{
 			title: "Success",
@@ -75,7 +75,7 @@ func TestProductRepository_ListProducts(t *testing.T) {
 				mockQueue.ExpectQuery(query).WillReturnRows(row)
 			},
 
-			expect: expect{data: []Product{{ID: "xpto_2", Name: "fire"}, {ID: "xpto_3", Name: "water"}}, err: nil},
+			expect: expect{data: []ProductCatalog{{ID: "xpto_2", Name: "fire"}, {ID: "xpto_3", Name: "water"}}, err: nil},
 		},
 	}
 	for _, tt := range tests {
@@ -102,7 +102,7 @@ func TestProductRepository_GetProduct(t *testing.T) {
 	}
 
 	type expect struct {
-		data Product
+		data ProductCatalog
 		err  error
 	}
 
@@ -119,7 +119,7 @@ func TestProductRepository_GetProduct(t *testing.T) {
 				productID: "",
 			},
 			setupMock: func() {},
-			expect:    expect{data: Product{}, err: fmt.Errorf("id cannot be empty")},
+			expect:    expect{data: ProductCatalog{}, err: fmt.Errorf("id cannot be empty")},
 		},
 		{
 			title: "Should return an error from db",
@@ -130,7 +130,7 @@ func TestProductRepository_GetProduct(t *testing.T) {
 			setupMock: func() {
 				mockQueue.ExpectQuery(query).WithArgs("xpto", 1).WillReturnError(gorm.ErrRecordNotFound)
 			},
-			expect: expect{data: Product{}, err: gorm.ErrRecordNotFound},
+			expect: expect{data: ProductCatalog{}, err: gorm.ErrRecordNotFound},
 		},
 		{
 			title: "Success",
@@ -143,7 +143,7 @@ func TestProductRepository_GetProduct(t *testing.T) {
 				mockQueue.ExpectQuery(query).WithArgs("xpto_2", 1).WillReturnRows(row)
 			},
 
-			expect: expect{data: Product{ID: "xpto_2", Name: "fire"}, err: nil},
+			expect: expect{data: ProductCatalog{ID: "xpto_2", Name: "fire"}, err: nil},
 		},
 	}
 	for _, tt := range tests {

@@ -1,4 +1,167 @@
+basePath: /api/v1
+definitions:
+  github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      purchase_price:
+        type: number
+      sales_price:
+        type: number
+      stock:
+        type: integer
+    type: object
+  github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      salesPrice:
+        type: number
+    type: object
+  ? github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog
+  : properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog'
+        type: array
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  ? github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product
+  : properties:
+      data:
+        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product'
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  ? github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog
+  : properties:
+      data:
+        $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository.ProductCatalog'
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null:
+    properties:
+      data:
+        $ref: '#/definitions/pkg.Null'
+      response_key:
+        type: string
+      response_message:
+        type: string
+    type: object
+  pkg.Null:
+    type: object
+host: localhost:8080
 info:
-  contact: {}
-paths: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Implementation in golang of FC monolith course.
+  termsOfService: http://swagger.io/terms/
+  title: fc-monolito APIs
+  version: "1.0"
+paths:
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint returns a list of products with information such
+        as name, price, description, and status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-array_github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+      summary: Retrieve a list of active products.
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: This API allows you to create a new product by providing its details
+        in the request body.
+      parameters:
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_product_adm_repository_Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+      summary: Create a new product.
+      tags:
+      - products
+  /products/{productID}:
+    get:
+      consumes:
+      - application/json
+      description: his API retrieves the details of a single product based on the
+        provided product ID.
+      parameters:
+      - description: Product ID
+        in: path
+        name: productID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-github_com_MarcoBuarque_monolito_internal_modules_store_catalog_repository_ProductCatalog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_MarcoBuarque_monolito_pkg.ApiResponse-pkg_Null'
+      summary: Retrieve a specific product by its ID.
+      tags:
+      - products
+schemes:
+- http
+- https
 swagger: "2.0"

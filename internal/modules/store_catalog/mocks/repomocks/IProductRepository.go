@@ -12,14 +12,14 @@ type IProductRepository struct {
 }
 
 // GetProduct provides a mock function with given fields: ctx, id
-func (_m *IProductRepository) GetProduct(ctx context.Context, id string) (repository.Product, error) {
+func (_m *IProductRepository) GetProduct(ctx context.Context, id string) (repository.ProductCatalog, error) {
 	ret := _m.Called(ctx, id)
 
-	var r0 repository.Product
-	if rf, ok := ret.Get(0).(func(context.Context, string) repository.Product); ok {
+	var r0 repository.ProductCatalog
+	if rf, ok := ret.Get(0).(func(context.Context, string) repository.ProductCatalog); ok {
 		r0 = rf(ctx, id)
 	} else {
-		r0 = ret.Get(0).(repository.Product)
+		r0 = ret.Get(0).(repository.ProductCatalog)
 	}
 
 	var r1 error
@@ -33,15 +33,15 @@ func (_m *IProductRepository) GetProduct(ctx context.Context, id string) (reposi
 }
 
 // ListProducts provides a mock function with given fields: ctx
-func (_m *IProductRepository) ListProducts(ctx context.Context) ([]repository.Product, error) {
+func (_m *IProductRepository) ListProducts(ctx context.Context) ([]repository.ProductCatalog, error) {
 	ret := _m.Called(ctx)
 
-	var r0 []repository.Product
-	if rf, ok := ret.Get(0).(func(context.Context) []repository.Product); ok {
+	var r0 []repository.ProductCatalog
+	if rf, ok := ret.Get(0).(func(context.Context) []repository.ProductCatalog); ok {
 		r0 = rf(ctx)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]repository.Product)
+			r0 = ret.Get(0).([]repository.ProductCatalog)
 		}
 	}
 
@@ -53,18 +53,4 @@ func (_m *IProductRepository) ListProducts(ctx context.Context) ([]repository.Pr
 	}
 
 	return r0, r1
-}
-
-// UpdateSalesPrice provides a mock function with given fields: ctx, id, price
-func (_m *IProductRepository) UpdateSalesPrice(ctx context.Context, id string, price float64) error {
-	ret := _m.Called(ctx, id, price)
-
-	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, float64) error); ok {
-		r0 = rf(ctx, id, price)
-	} else {
-		r0 = ret.Error(0)
-	}
-
-	return r0
 }

@@ -7,5 +7,5 @@ import (
 )
 
 type IListProductsUseCase interface {
-	Execute(ctx context.Context) ([]repository.Product, error)
+	Execute(ctx context.Context) ([]repository.ProductCatalog, error)
 }

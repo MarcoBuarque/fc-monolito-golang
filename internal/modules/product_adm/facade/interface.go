@@ -9,4 +9,5 @@ import (
 type IProductAdmFacade interface {
 	CreateProduct(ctx context.Context, data repository.Product) (repository.Product, error)
 	CheckStock(ctx context.Context, productID string) (int32, error)
+	UpdateSalesPrice(ctx context.Context, productID string, newprice float32) (repository.Product, error)
 }
