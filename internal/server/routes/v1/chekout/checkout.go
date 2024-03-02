@@ -1,4 +1,4 @@
-package v1
+package checkout
 
 import (
 	"net/http"
@@ -14,6 +14,29 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var placeOrderUseCase placeorder.IPlaceOrderUseCase
+
+type checkoutRequest struct {
+	ClientID string `binding:"required"`
+	Products []placeorder.ProductInfo
+}
+
+func init() {
+	placeOrderUseCase = placeorder.NewPlaceOrderUseCase(
+		repository.NewCheckoutRepository(config.GetDB()),
+		clientAdmFactory.NewClientAdmFacadeFactory(),
+		productCatalogFactory.NewStoreCatalogFacadeFactory(),
+		productAdmFactory.NewProductAdmFacadeFactory(),
+	)
+}
+
+func ConfigRoutes(v1 *gin.RouterGroup) {
+	checkoutGroup := v1.Group("/checkout")
+	{
+		checkoutGroup.POST("", checkout)
+	}
+}
+
 // Checkout godoc
 //
 //	@Summary		Create a new order.
@@ -21,27 +44,22 @@ import (
 //	@Tags			checkout
 //	@Accept			json
 //	@Produce		json
-//	@Param			order	body		CheckoutRequest	true	"Checkout data"
+//	@Param			order	body		checkoutRequest	true	"Checkout data"
 //	@Success		200		{object}	pkg.ApiResponse[repository.Order]
 //
 //	@Failure		400		{object}	pkg.ApiResponse[pkg.Null]
 //	@Failure		500		{object}	pkg.ApiResponse[pkg.Null]
 //
 //	@Router			/checkout [post]
-func Checkout(c *gin.Context) {
+func checkout(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
-	var request CheckoutRequest
+	var request checkoutRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		pkg.PanicException(constant.InvalidRequest)
 	}
 
-	response, err := placeorder.NewPlaceOrderUseCase(
-		repository.NewCheckoutRepository(config.GetDB()),
-		clientAdmFactory.NewClientAdmFacadeFactory(),
-		productCatalogFactory.NewStoreCatalogFacadeFactory(),
-		productAdmFactory.NewProductAdmFacadeFactory(),
-	).Execute(c.Request.Context(), request.ClientID, request.Products)
+	response, err := placeOrderUseCase.Execute(c.Request.Context(), request.ClientID, request.Products)
 
 	if err != nil {
 		pkg.GormErrorHandler("Routes V1: Checkout", err)

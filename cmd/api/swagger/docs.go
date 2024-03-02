@@ -44,7 +44,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_server_routes_v1.CheckoutRequest"
+                            "$ref": "#/definitions/internal_server_routes_v1_chekout.checkoutRequest"
                         }
                     }
                 ],
@@ -233,7 +233,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_server_routes_v1.UpdateSalesPriceRequest"
+                            "$ref": "#/definitions/internal_server_routes_v1_product_management.updateSalesPriceRequest"
                         }
                     }
                 ],
@@ -641,7 +641,7 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_server_routes_v1.CheckoutRequest": {
+        "internal_server_routes_v1_chekout.checkoutRequest": {
             "type": "object",
             "required": [
                 "clientID"
@@ -658,7 +658,7 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_server_routes_v1.UpdateSalesPriceRequest": {
+        "internal_server_routes_v1_product_management.updateSalesPriceRequest": {
             "type": "object",
             "required": [
                 "price"

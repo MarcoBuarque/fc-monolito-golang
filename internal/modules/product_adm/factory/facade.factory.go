@@ -7,7 +7,7 @@ import (
 	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/facade"
 	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
 	checkstock "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/check_stock"
-	addproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/create_product"
+	createproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/create_product"
 	updatesalesprice "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/update_sales_price"
 )
 
@@ -20,7 +20,7 @@ func createSingleton() {
 	repo := repository.NewProductRepository(config.GetDB())
 
 	singleton = facade.NewProductAdmFacade(
-		addproduct.NewCreateProductUseCase(repo),
+		createproduct.NewCreateProductUseCase(repo),
 		checkstock.NewCheckStockUseCase(repo),
 		updatesalesprice.NewUpdateSalesPriceUseCase(repo),
 	)

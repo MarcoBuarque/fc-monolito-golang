@@ -1,32 +1,18 @@
 package v1
 
-import "github.com/gin-gonic/gin"
+import (
+	checkout "github.com/MarcoBuarque/fc-monolito-golang/internal/server/routes/v1/chekout"
+	clientmanagement "github.com/MarcoBuarque/fc-monolito-golang/internal/server/routes/v1/client_management"
+	productmanagement "github.com/MarcoBuarque/fc-monolito-golang/internal/server/routes/v1/product_management"
+	storecatalog "github.com/MarcoBuarque/fc-monolito-golang/internal/server/routes/v1/store_catalog"
+	"github.com/gin-gonic/gin"
+)
 
 func SetupRoutes(router *gin.Engine) {
 	v1 := router.Group("api/v1")
-	{
-		productManagement := v1.Group("/product-management")
-		{
-			productManagement.POST("/", CreateProduct)
-			productManagement.PATCH("/:productID", UpdateSalesPrice)
-		}
 
-		storeCatalog := v1.Group("/store-catalog")
-		{
-			storeCatalog.GET("/products", ListProducts)
-			storeCatalog.GET("/products/:productID", GetProduct)
-		}
-
-		clientManagement := v1.Group("/client-management")
-		{
-			clientManagement.POST("/", CreateClient)
-			// clientManagement.GET("", )
-			clientManagement.GET("/:clientID", GetClient)
-		}
-
-		checkout := v1.Group("/checkout")
-		{
-			checkout.POST("", Checkout)
-		}
-	}
+	checkout.ConfigRoutes(v1)
+	clientmanagement.ConfigRoutes(v1)
+	productmanagement.ConfigRoutes(v1)
+	storecatalog.ConfigRoutes(v1)
 }

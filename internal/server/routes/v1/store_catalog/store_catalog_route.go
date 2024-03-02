@@ -1,19 +1,41 @@
-package v1
+package storecatalog
 
 import (
 	"net/http"
 
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
 	"github.com/MarcoBuarque/fc-monolito-golang/constant"
 
 	productCatalogFactory "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/factory"
-	repoProductCatalog "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/repository"
+	getproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/usecase/get_product"
+	listproducts "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/store_catalog/usecase/list_products"
 	"github.com/MarcoBuarque/fc-monolito-golang/pkg"
 	"github.com/gin-gonic/gin"
 )
 
-var _ repoProductCatalog.ProductCatalog
+var (
+	_           repository.ProductCatalog
+	getUsecase  getproduct.IGetProductUseCase
+	listUsecase listproducts.IListProductsUseCase
+)
 
-// GetProduct godoc
+func init() {
+	repo := repository.NewProductRepository(config.GetDB())
+
+	listUsecase = listproducts.NewListProductsUseCase(repo)
+	getUsecase = getproduct.NewGetProductUseCase(repo)
+}
+
+func ConfigRoutes(v1 *gin.RouterGroup) {
+	storeCatalog := v1.Group("/store-catalog")
+	{
+		storeCatalog.GET("/products", listProducts)
+		storeCatalog.GET("/products/:productID", getProduct)
+	}
+}
+
+// getProduct godoc
 //
 //	@Summary		Retrieve a specific product by its ID.
 //	@Description	This endpoint retrieves the details of a single product based on the provided product ID.
@@ -23,13 +45,13 @@ var _ repoProductCatalog.ProductCatalog
 //
 //	@Param			productID	path		string	true	"Product ID"
 //
-//	@Success		200			{object}	pkg.ApiResponse[repoProductCatalog.ProductCatalog]
+//	@Success		200			{object}	pkg.ApiResponse[repository.ProductCatalog]
 //
 //	@Failure		400			{object}	pkg.ApiResponse[pkg.Null]
 //	@Failure		500			{object}	pkg.ApiResponse[pkg.Null]
 //
 //	@Router			/store-catalog/products/{productID} [get]
-func GetProduct(c *gin.Context) {
+func getProduct(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
 	productID := c.Param("productID")
@@ -42,7 +64,7 @@ func GetProduct(c *gin.Context) {
 	c.JSON(http.StatusOK, pkg.BuildResponse(constant.Success, response))
 }
 
-// ListProducts godoc
+// listProducts godoc
 //
 //	@Summary		Retrieve a list of active products.
 //	@Description	This endpoint returns a list of products with information such as name, price, description, and status.
@@ -50,13 +72,13 @@ func GetProduct(c *gin.Context) {
 //	@Accept			json
 //	@Produce		json
 //
-//	@Success		200	{object}	pkg.ApiResponse[[]repoProductCatalog.ProductCatalog]
+//	@Success		200	{object}	pkg.ApiResponse[[]repository.ProductCatalog]
 //
 //	@Failure		400	{object}	pkg.ApiResponse[pkg.Null]
 //	@Failure		500	{object}	pkg.ApiResponse[pkg.Null]
 //
 //	@Router			/store-catalog/products/ [get]
-func ListProducts(c *gin.Context) {
+func listProducts(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
 	response, err := productCatalogFactory.NewStoreCatalogFacadeFactory().ListProducts(c.Request.Context())

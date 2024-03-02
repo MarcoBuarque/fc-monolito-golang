@@ -203,7 +203,7 @@ definitions:
       response_message:
         type: string
     type: object
-  internal_server_routes_v1.CheckoutRequest:
+  internal_server_routes_v1_chekout.checkoutRequest:
     properties:
       clientID:
         type: string
@@ -214,7 +214,7 @@ definitions:
     required:
     - clientID
     type: object
-  internal_server_routes_v1.UpdateSalesPriceRequest:
+  internal_server_routes_v1_product_management.updateSalesPriceRequest:
     properties:
       price:
         type: number
@@ -249,7 +249,7 @@ paths:
         name: order
         required: true
         schema:
-          $ref: '#/definitions/internal_server_routes_v1.CheckoutRequest'
+          $ref: '#/definitions/internal_server_routes_v1_chekout.checkoutRequest'
       produces:
       - application/json
       responses:
@@ -377,7 +377,7 @@ paths:
         name: product
         required: true
         schema:
-          $ref: '#/definitions/internal_server_routes_v1.UpdateSalesPriceRequest'
+          $ref: '#/definitions/internal_server_routes_v1_product_management.updateSalesPriceRequest'
       produces:
       - application/json
       responses:

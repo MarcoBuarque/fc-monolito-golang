@@ -1,38 +1,64 @@
-package v1
+package productmanagement
 
 import (
 	"net/http"
 
+	"github.com/MarcoBuarque/fc-monolito-golang/config"
 	"github.com/MarcoBuarque/fc-monolito-golang/constant"
-	productAdmFactory "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/factory"
-	repoProductADM "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
+	"github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/repository"
+	createproduct "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/create_product"
+	updatesalesprice "github.com/MarcoBuarque/fc-monolito-golang/internal/modules/product_adm/usecase/update_sales_price"
 	"github.com/MarcoBuarque/fc-monolito-golang/pkg"
 	"github.com/gin-gonic/gin"
 )
 
-// CreateProduct godoc
+type updateSalesPriceRequest struct {
+	Price float32 `binding:"required"`
+}
+
+var (
+	createUsecase      createproduct.ICreateProductUseCase
+	updatePriceUsecase updatesalesprice.IUpdateSalesPriceUseCase
+)
+
+func init() {
+	repo := repository.NewProductRepository(config.GetDB())
+
+	createUsecase = createproduct.NewCreateProductUseCase(repo)
+	updatePriceUsecase = updatesalesprice.NewUpdateSalesPriceUseCase(repo)
+}
+
+func ConfigRoutes(v1 *gin.RouterGroup) {
+	productManagement := v1.Group("/product-management")
+	{
+		productManagement.POST("/", createProduct)
+		productManagement.PATCH("/:productID", updateSalesPrice)
+	}
+}
+
+// createProduct godoc
 //
 //	@Summary		Create a new product.
 //	@Description	This endpoint allows you to create a new product by providing its details in the request body.
 //	@Tags			products
 //	@Accept			json
 //	@Produce		json
-//	@Param			product	body		repoProductADM.Product	true	"Product data"
-//	@Success		200		{object}	pkg.ApiResponse[repoProductADM.Product]
+//	@Param			product	body		repository.Product	true	"Product data"
+//	@Success		200		{object}	pkg.ApiResponse[repository.Product]
 //
 //	@Failure		400		{object}	pkg.ApiResponse[pkg.Null]
 //	@Failure		500		{object}	pkg.ApiResponse[pkg.Null]
 //
 //	@Router			/product-management [post]
-func CreateProduct(c *gin.Context) {
+func createProduct(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
-	var request repoProductADM.Product
+	var request repository.Product
 	if err := c.ShouldBindJSON(&request); err != nil {
 		pkg.PanicException(constant.InvalidRequest)
 	}
 
-	response, err := productAdmFactory.NewProductAdmFacadeFactory().CreateProduct(c.Request.Context(), request)
+	response, err := createUsecase.Execute(c.Request.Context(), request)
 	if err != nil {
 		pkg.GormErrorHandler("Routes V1: CreateProduct", err)
 	}
@@ -40,7 +66,7 @@ func CreateProduct(c *gin.Context) {
 	c.JSON(http.StatusCreated, pkg.BuildResponse(constant.Success, response))
 }
 
-// UpdateSalesPrice godoc
+// updateSalesPrice godoc
 //
 //	@Summary		Update the sales price of a product.
 //	@Description	This API allows you to update the sales price of a specific product by providing its ID and the new price in the request body.
@@ -48,25 +74,25 @@ func CreateProduct(c *gin.Context) {
 //	@Accept			json
 //	@Produce		json
 //	@Param			productID	path	string					true	"Product ID"
-//	@Param			product		body	UpdateSalesPriceRequest	true	"new price value"
+//	@Param			product		body	updateSalesPriceRequest	true	"new price value"
 //
-// @Success	200	{object}	pkg.ApiResponse[repoProductADM.Product]
+// @Success	200	{object}	pkg.ApiResponse[repository.Product]
 //
 // @Failure	400	{object}	pkg.ApiResponse[pkg.Null]
 // @Failure	500	{object}	pkg.ApiResponse[pkg.Null]
 //
 // @Router		/product-management/{productID} [patch]
-func UpdateSalesPrice(c *gin.Context) {
+func updateSalesPrice(c *gin.Context) {
 	defer pkg.PanicHandler(c)
 
 	productID := c.Param("productID")
 
-	var request UpdateSalesPriceRequest
+	var request updateSalesPriceRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		pkg.PanicException(constant.InvalidRequest)
 	}
 
-	response, err := productAdmFactory.NewProductAdmFacadeFactory().UpdateSalesPrice(c.Request.Context(), productID, request.Price)
+	response, err := updatePriceUsecase.Execute(c.Request.Context(), productID, request.Price)
 	if err != nil {
 		pkg.GormErrorHandler("Routes V1: UpdateSalesPrice", err)
 	}
