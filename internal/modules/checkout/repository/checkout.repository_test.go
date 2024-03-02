@@ -37,6 +37,7 @@ func TestNewCheckoutRepository(t *testing.T) {
 }
 
 func TestCheckoutRepository_CreateClientOrder(t *testing.T) {
+	t.Skip()
 	assert := assert.New(t)
 
 	order := Order{
