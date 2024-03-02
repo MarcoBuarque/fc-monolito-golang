@@ -21,7 +21,7 @@ func GormErrorHandler(msg string, err error) {
 	case strings.Contains(errStr, "constraint"):
 		PanicException(constant.InvalidRequest)
 	default:
-		log.Error("GormErrorHandler: Cannot handler gorm error", msg, errStr)
+		log.Error("GormErrorHandler: Cannot handler gorm error:", msg, errStr)
 		PanicException(constant.UnknownError)
 	}
 

@@ -84,7 +84,7 @@ func (controller PlaceOrderUseCase) validateProducts(ctx context.Context, produc
 		}
 
 		if stock < product.Quantity {
-			return fmt.Errorf("%s product quantity %d is greater than stock %d", product.ProductID, product.Quantity, stock)
+			return fmt.Errorf("product ID %s quantity %d is greater than stock %d", product.ProductID, product.Quantity, stock)
 		}
 	}
 

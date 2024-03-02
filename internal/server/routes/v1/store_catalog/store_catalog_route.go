@@ -58,7 +58,7 @@ func getProduct(c *gin.Context) {
 
 	response, err := productCatalogFactory.NewStoreCatalogFacadeFactory().GetProduct(c.Request.Context(), productID)
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: GetProduct", err)
+		pkg.GormErrorHandler("Routes V1: GetProduct:", err)
 	}
 
 	c.JSON(http.StatusOK, pkg.BuildResponse(constant.Success, response))
@@ -83,7 +83,7 @@ func listProducts(c *gin.Context) {
 
 	response, err := productCatalogFactory.NewStoreCatalogFacadeFactory().ListProducts(c.Request.Context())
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: ListProducts", err)
+		pkg.GormErrorHandler("Routes V1: ListProducts:", err)
 	}
 
 	c.JSON(http.StatusOK, pkg.BuildResponse(constant.Success, response))

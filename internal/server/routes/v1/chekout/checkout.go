@@ -62,7 +62,7 @@ func checkout(c *gin.Context) {
 	response, err := placeOrderUseCase.Execute(c.Request.Context(), request.ClientID, request.Products)
 
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: Checkout", err)
+		pkg.GormErrorHandler("Routes V1: Checkout:", err)
 	}
 
 	c.JSON(http.StatusCreated, pkg.BuildResponse(constant.Success, response))

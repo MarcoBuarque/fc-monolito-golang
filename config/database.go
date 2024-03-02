@@ -45,7 +45,7 @@ func setupDB() {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{CreateBatchSize: 100})
 	if err != nil {
-		panic(fmt.Sprintf("failed to connect database %w", err))
+		panic(fmt.Errorf("failed to connect database: %w", err))
 	}
 
 	conn = db

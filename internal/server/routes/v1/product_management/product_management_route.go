@@ -60,7 +60,7 @@ func createProduct(c *gin.Context) {
 
 	response, err := createUsecase.Execute(c.Request.Context(), request)
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: CreateProduct", err)
+		pkg.GormErrorHandler("Routes V1: CreateProduct:", err)
 	}
 
 	c.JSON(http.StatusCreated, pkg.BuildResponse(constant.Success, response))
@@ -94,7 +94,7 @@ func updateSalesPrice(c *gin.Context) {
 
 	response, err := updatePriceUsecase.Execute(c.Request.Context(), productID, request.Price)
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: UpdateSalesPrice", err)
+		pkg.GormErrorHandler("Routes V1: UpdateSalesPrice:", err)
 	}
 
 	// TODO: Review: send all product data back?

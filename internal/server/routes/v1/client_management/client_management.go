@@ -57,7 +57,7 @@ func createClient(c *gin.Context) {
 
 	response, err := createUseCase.Execute(c.Request.Context(), request)
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: CreateClient", err)
+		pkg.GormErrorHandler("Routes V1: CreateClient:", err)
 	}
 
 	c.JSON(http.StatusCreated, pkg.BuildResponse(constant.Success, response))
@@ -86,7 +86,7 @@ func getClient(c *gin.Context) {
 
 	response, err := getUseCase.Execute(c.Request.Context(), clientID)
 	if err != nil {
-		pkg.GormErrorHandler("Routes V1: GetClient", err)
+		pkg.GormErrorHandler("Routes V1: GetClient:", err)
 	}
 
 	c.JSON(http.StatusOK, pkg.BuildResponse(constant.Success, response))
