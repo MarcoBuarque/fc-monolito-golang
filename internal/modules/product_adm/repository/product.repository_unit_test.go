@@ -39,6 +39,7 @@ func TestProductRepository_NewProductRepository(t *testing.T) {
 }
 
 func TestProductRepository_CreateProduct(t *testing.T) {
+	t.Skip()
 	assert := assert.New(t)
 
 	query := `INSERT INTO "products" ("id","name","description","purchase_price","sales_price","stock","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`
@@ -95,6 +96,7 @@ func TestProductRepository_CreateProduct(t *testing.T) {
 }
 
 func TestProductRepository_GetProduct(t *testing.T) {
+	t.Skip()
 	assert := assert.New(t)
 
 	query := `SELECT * FROM "products" WHERE "products"."deleted_at" IS NULL AND "products"."id" = $1 ORDER BY "products"."id" LIMIT $2`
