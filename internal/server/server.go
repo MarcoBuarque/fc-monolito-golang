@@ -1,7 +1,6 @@
 package server
 
 import (
-	"context"
 	"net/http"
 
 	docs "github.com/MarcoBuarque/fc-monolito-golang/cmd/api/swagger"
@@ -36,8 +35,4 @@ func SetupServer() *http.Server {
 		Addr:    ":8080",
 		Handler: setupHandler(),
 	}
-}
-
-func Shutdown(ctx context.Context) error {
-	return nil
 }

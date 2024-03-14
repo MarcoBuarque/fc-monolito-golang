@@ -50,8 +50,10 @@ func main() {
 
 	// Initializing the server in a goroutine so that
 	// it won't block the graceful shutdown handling below
+	api := server.SetupServer()
+
 	go func() {
-		if err := server.SetupServer().ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		if err := api.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Errorf("error: %s\n", err)
 		}
 	}()
@@ -69,7 +71,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	if err := server.Shutdown(ctx); err != nil {
+	if err := api.Shutdown(ctx); err != nil {
 		log.Fatal("Error while shutting down Server. Initiating force shutdown...", "Error", err.Error())
 	} else {
 		log.Info("Server exiting")
